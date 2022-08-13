@@ -10,9 +10,9 @@ export default function Header() {
 			</div>
 			<div className="grow"></div>
 			<nav>
-				<Link href="/login">
+				{/* <Link href="/login">
 					<button className="btn-primary m-8">Login</button>
-				</Link>
+				</Link> */}
 			</nav>
 		</div>
 	);
