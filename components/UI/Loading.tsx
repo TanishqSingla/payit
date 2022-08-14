@@ -1,6 +1,6 @@
 export default function Loading() {
 	return (
-		<div className="border border-blue-300 shadow rounded-md p-4 sm:w-[22rem] w-[16rem]">
+		<div className="border border-blue-300 shadow rounded-md p-4 sm:w-full w-[16rem] h-[9rem]">
 			<div className="animate-pulse flex space-x-4">
 				<div className="flex-1 space-y-6 py-1">
 					<div className="h-2 bg-slate-700 rounded"></div>

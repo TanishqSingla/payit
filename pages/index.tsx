@@ -26,7 +26,7 @@ const Home: NextPage = () => {
 				/>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<main className="max-w-3xl w-full mx-auto flex flex-wrap gap-8 justify-evenly sm:justify-between">
+			<main className="lg:max-w-3xl max-w-2xl w-full mx-auto grid grid-cols-1 sm:grid-cols-2 gap-8 justify-items-center">
 				{/* {loading || !paymentDetails ? (
 					<Loading />
 				) : (
