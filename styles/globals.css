@@ -14,6 +14,9 @@
 		@apply w-[30vw] px-[.4rem] py-[.2em] border-b-2 border-b-[#0005] outline-none bg-transparent;
 	}
 	h1 {
-		@apply text-xl
+		@apply text-xl font-bold
+	}
+	li {
+		@apply text-sm
 	}
 }

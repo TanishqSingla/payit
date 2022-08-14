@@ -1,19 +1,23 @@
 interface PaymentCardProps {
-	paymentDetails: {
-		recipentName: string;
-		createdAt: Date;
-		amount: string;
-	}
+	paymentDetails: Payment;
 }
 
-export default function PaymentCard({paymentDetails}: PaymentCardProps) {
+export default function PaymentCard({ paymentDetails }: PaymentCardProps) {
 	return (
-		<div className="w-[100%] max-w-[16rem] flex flex-col h-[9rem] mx-4 p-4">
-			<div>{paymentDetails.recipentName}</div>
-			<div>{paymentDetails.amount}</div>
-			<div className="flex justify-between">
+		<div className="md:w-[22rem] w-[16rem] flex flex-col h-[9rem] p-2 border rounded-md border-blue-300 shadow">
+			<h1>{paymentDetails.payee}</h1>
+			<div className="grow">
+				<ul>
+					<li>Amount: {paymentDetails.amount}</li>
+					<li>
+						Created At: {paymentDetails.createdAt.toDateString()}
+					</li>
+					{paymentDetails?.filename && <li>file: {paymentDetails.filename}</li>}
+				</ul>
+			</div>
+			<div className="flex justify-between h-4">
 				<div>details</div>
-				<button className="green">status</button>
+				<button className="">{paymentDetails.status}</button>
 			</div>
 		</div>
 	);
