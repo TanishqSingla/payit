@@ -8,11 +8,15 @@ export default function PaymentCard({ paymentDetails }: PaymentCardProps) {
 			<h1>{paymentDetails.payee}</h1>
 			<div className="grow">
 				<ul>
+					{paymentDetails.fromEnterprise && <li>from: {paymentDetails.fromEnterprise}</li>}
 					<li>Amount: {paymentDetails.amount}</li>
 					<li>
-						Created At: {paymentDetails.createdAt.toDateString()}
+						Created At:{" "}
+						{new Date(paymentDetails.createdAt).toDateString()}
 					</li>
-					{paymentDetails?.filename && <li>file: {paymentDetails.filename}</li>}
+					{paymentDetails?.filename && (
+						<li>file: {paymentDetails.filename}</li>
+					)}
 				</ul>
 			</div>
 			<div className="flex justify-between h-6">

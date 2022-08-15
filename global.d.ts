@@ -6,6 +6,7 @@ declare global {
     payee: string;
     amount: string;
     createdAt: Date;
+    fromEnterprise: string;
     status: 'TBD' | 'DONE' | 'BLOCKED';
     filename?: string;
   }
