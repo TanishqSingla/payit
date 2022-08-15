@@ -1,6 +1,6 @@
 import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import PaymentCard from "../components/PaymentCard/PaymentCard";
 import { getPayements, supabase } from "../utils/supabase";
 
@@ -13,7 +13,7 @@ const Home: NextPage<HomeProps> = (props) => {
 
 	useEffect(() => {
 		setPaymentDetails(props.payments)
-	}, [paymentDetails, props.payments])
+	}, [props.payments])
 
 	supabase
 		.from("Payments")
