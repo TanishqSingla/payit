@@ -9,9 +9,11 @@ interface HomeProps {
 }
 
 const Home: NextPage<HomeProps> = (props) => {
-	const [paymentDetails, setPaymentDetails] = useState<Payment[]>(
-		props.payments
-	);
+	const [paymentDetails, setPaymentDetails] = useState<Payment[]>();
+
+	useEffect(() => {
+		setPaymentDetails(props.payments)
+	}, [paymentDetails, props.payments])
 
 	supabase
 		.from("Payments")
@@ -33,7 +35,7 @@ const Home: NextPage<HomeProps> = (props) => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<main className="myContainer grid grid-cols-1 sm:grid-cols-2 gap-8 justify-items-center">
-				{paymentDetails.map((detail) => (
+				{paymentDetails && paymentDetails.map((detail) => (
 					<PaymentCard key={detail.id} paymentDetails={detail} />
 				))}
 			</main>
