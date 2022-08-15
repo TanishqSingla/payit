@@ -17,7 +17,7 @@ const Home: NextPage<HomeProps> = (props) => {
 		.from("Payments")
 		.on("*", (_) => {
 			getPayements()
-				.then((data) => setPaymentDetails(data))
+				.then((data) => {setPaymentDetails(data); fetch('/api/revalidate')})
 				.catch((e) => console.log(e));
 		})
 		.subscribe();
