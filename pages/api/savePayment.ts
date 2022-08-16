@@ -9,6 +9,7 @@ export default async function handler(
 		.from("Payments")
 		.insert([JSON.parse(req.body)]);
 	if (data) {
+		res.revalidate('/')
 		res.status(200).json(data);
 	} else {
 		res.status(400).json(error);
