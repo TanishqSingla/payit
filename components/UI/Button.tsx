@@ -4,12 +4,13 @@ type Props = {
 	loading: boolean;
 	children: React.ReactNode;
 	disabled?: boolean;
+	type?: 'button' | 'submit';
 };
 
-export const Button = ({ loading, children, disabled }: Props) => {
+export const Button = ({ loading, children, disabled = false, type = 'button' }: Props) => {
 	return (
 		<button
-			type="submit"
+			type={type}
 			className="inline-flex items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded-md text-white bg-indigo-500 focus:outline-indigo-400 hover:bg-indigo-600 focus:bg-indigo-600 transition ease-in-out duration-150 cursor-pointer"
 			disabled={loading || disabled}
 		>

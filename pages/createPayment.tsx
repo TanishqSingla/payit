@@ -1,24 +1,24 @@
 import Head from "next/head";
 import { FormEvent, useState } from "react";
 import { Button } from "../components/UI/Button";
+import { savePayment, supabase } from "../utils/supabase";
 
 export default function CreatePayment() {
 	const [loading, setLoading] = useState(false);
+	const [formData, setFormData] = useState({
+		payee: "",
+		amount: "",
+		fromEnterprise: "",
+	});
 
 	const handleSubmit = (event: FormEvent) => {
 		event.preventDefault();
-		const form = event.target as HTMLFormElement;
-		const formData = new FormData(form);
 		setLoading(true);
-		fetch("/api/savePayment", {
-			method: "POST",
-			body: JSON.stringify(Object.fromEntries(new FormData(form))),
-		})
-			.then((_) => {
-				console.log("Created Payment Successfully");
-			})
-			.catch((e) => console.log("Error", e))
-			.finally(() => setLoading(false));
+		if (formData)
+			savePayment(formData)
+				.then((data) => fetch("/api/revalidate"))
+				.catch((e) => console.log("Error", e))
+				.finally(() => setLoading(false));
 	};
 
 	return (
@@ -33,14 +33,24 @@ export default function CreatePayment() {
 			>
 				<div>
 					<label htmlFor="payee">Payee</label>
-					<input onChange={e => e.target.value.trim()} className="input" name="payee" placeholder="Payee" />
+					<input
+						className="input"
+						name="payee"
+						placeholder="Payee"
+						onChange={(e) =>
+							setFormData({ ...formData, payee: e.target.value })
+						}
+					/>
 				</div>
 				<div>
-					<label htmlFor="password">Amount</label>
+					<label htmlFor="amount">Amount</label>
 					<input
 						className="input"
 						name="amount"
 						placeholder="Amount"
+						onChange={(e) =>
+							setFormData({ ...formData, amount: e.target.value })
+						}
 					/>
 				</div>
 				<label htmlFor="fromEnterprise">From</label>
@@ -49,9 +59,17 @@ export default function CreatePayment() {
 						className="input"
 						placeholder="From Enterprise?"
 						name="fromEnterprise"
+						onChange={(e) =>
+							setFormData({
+								...formData,
+								fromEnterprise: e.target.value,
+							})
+						}
 					/>
 				</div>
-				<Button loading={loading}>Submit</Button>
+				<Button type="submit" loading={loading}>
+					Submit
+				</Button>
 			</form>
 		</>
 	);

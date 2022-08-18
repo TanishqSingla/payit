@@ -43,7 +43,7 @@ const Home: NextPage<HomeProps> = (props) => {
 	);
 };
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps = async (_) => {
 	const payments = await getPayements();
 
 	return {
