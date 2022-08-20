@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { Button } from "../components/UI/Button";
-import { savePayment } from "../utils/supabase";
+import { savePayment, supabase } from "../utils/supabase";
 
 export default function CreatePayment() {
 	const [loading, setLoading] = useState(false);
@@ -27,8 +27,21 @@ export default function CreatePayment() {
 		setLoading(true);
 		if (formData)
 			savePayment(formData)
-				.then((_) => fetch("/api/revalidate"))
-				.catch((e) => console.log("Error", e))
+				.then(async (_) => {
+					if (uploadedFile) {
+						const { data, error } = await supabase.storage
+							.from("documents")
+							.upload(uploadedFile.name, uploadedFile);
+						if (error) {
+							await supabase.from("Payments").update({fileName: null}).eq('fileName', uploadedFile.name)
+						}
+					}
+					fetch("/api/revalidate");
+				})
+				.catch(async (e) => {
+					console.table(e)
+				})
+				.finally(() => setLoading(false));
 	};
 
 	const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {

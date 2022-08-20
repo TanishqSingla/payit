@@ -12,14 +12,17 @@ const Home: NextPage<HomeProps> = (props) => {
 	const [paymentDetails, setPaymentDetails] = useState<Payment[]>();
 
 	useEffect(() => {
-		setPaymentDetails(props.payments)
-	}, [props.payments])
+		setPaymentDetails(props.payments);
+	}, [props.payments]);
 
 	supabase
 		.from("Payments")
 		.on("*", (_) => {
 			getPayements()
-				.then((data) => {setPaymentDetails(data); fetch('/api/revalidate')})
+				.then((data) => {
+					setPaymentDetails(data);
+					fetch("/api/revalidate");
+				})
 				.catch((e) => console.log(e));
 		})
 		.subscribe();
@@ -28,16 +31,14 @@ const Home: NextPage<HomeProps> = (props) => {
 		<>
 			<Head>
 				<title>Payit</title>
-				<meta
-					name="description"
-					content="A simple payment reminder"
-				/>
+				<meta name="description" content="A simple payment reminder" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<main className="myContainer grid grid-cols-1 sm:grid-cols-2 gap-8 justify-items-center">
-				{paymentDetails && paymentDetails.map((detail) => (
-					<PaymentCard key={detail.id} paymentDetails={detail} />
-				))}
+				{paymentDetails &&
+					paymentDetails.map((detail) => (
+						<PaymentCard key={detail.id} paymentDetails={detail} />
+					))}
 			</main>
 		</>
 	);
