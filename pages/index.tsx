@@ -1,5 +1,6 @@
 import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import PaymentCard from "../components/PaymentCard/PaymentCard";
 import { getPayements, supabase } from "../utils/supabase";
@@ -40,6 +41,11 @@ const Home: NextPage<HomeProps> = (props) => {
 						<PaymentCard key={detail.id} paymentDetails={detail} />
 					))}
 			</main>
+			<Link href="/createPayment" passHref>
+				<a className="h-12 w-12 rounded-full bg-primary text-white py-2 text-2xl fixed text-center bottom-10 right-20">
+					+
+				</a>
+			</Link>
 		</>
 	);
 };

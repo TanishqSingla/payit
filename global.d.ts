@@ -7,7 +7,7 @@ declare global {
     amount: string;
     createdAt: Date;
     fromEnterprise: string;
-    status: 'TBD' | 'DONE' | 'BLOCKED';
-    filename?: string;
+    status: string; 
+    fileName?: string;
   }
 }

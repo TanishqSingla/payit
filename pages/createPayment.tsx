@@ -5,11 +5,12 @@ import { savePayment, supabase } from "../utils/supabase";
 
 export default function CreatePayment() {
 	const [loading, setLoading] = useState(false);
-	const [formData, setFormData] = useState({
+	const [formData, setFormData] = useState<Partial<Payment>>({
 		payee: "",
 		amount: "",
 		fromEnterprise: "",
 		fileName: "",
+		status: "TBD",
 	});
 	const [uploadedFile, setUploadedFile] = useState<File>();
 
@@ -33,13 +34,16 @@ export default function CreatePayment() {
 							.from("documents")
 							.upload(uploadedFile.name, uploadedFile);
 						if (error) {
-							await supabase.from("Payments").update({fileName: null}).eq('fileName', uploadedFile.name)
+							await supabase
+								.from("Payments")
+								.update({ fileName: null })
+								.eq("fileName", uploadedFile.name);
 						}
 					}
 					fetch("/api/revalidate");
 				})
 				.catch(async (e) => {
-					console.table(e)
+					console.table(e);
 				})
 				.finally(() => setLoading(false));
 	};
@@ -105,8 +109,22 @@ export default function CreatePayment() {
 					/>
 				</div>
 				<div>
-					<label htmlFor="uploadImage"></label>
+					<label htmlFor="uploadImage">Upload File</label>
 					<input type="file" onChange={handleFileUpload} />
+				</div>
+				<div>
+					<label htmlFor="status">Status:</label>
+					<select
+						className="input"
+						value={formData.status}
+						onChange={(e) =>
+							setFormData({ ...formData, status: e.target.value })
+						}
+					>
+						<option value="TBD">To be done</option>
+						<option value="DONE">Done</option>
+						<option value="BLOCKED">Blocked</option>
+					</select>
 				</div>
 				<Button type="submit" loading={loading}>
 					Submit
