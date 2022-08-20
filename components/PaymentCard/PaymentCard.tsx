@@ -15,7 +15,7 @@ export default function PaymentCard({ paymentDetails }: PaymentCardProps) {
 						{new Date(paymentDetails.createdAt).toDateString()}
 					</li>
 					{paymentDetails?.fileName && (
-						<li>file: {paymentDetails.fileName}</li>
+						<li className="truncate">file: {paymentDetails.fileName}</li>
 					)}
 				</ul>
 			</div>
