@@ -1,7 +1,7 @@
 import Head from "next/head";
-import { FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { Button } from "../components/UI/Button";
-import { savePayment, supabase } from "../utils/supabase";
+import { savePayment } from "../utils/supabase";
 
 export default function CreatePayment() {
 	const [loading, setLoading] = useState(false);
@@ -9,16 +9,34 @@ export default function CreatePayment() {
 		payee: "",
 		amount: "",
 		fromEnterprise: "",
+		fileName: "",
 	});
+	const [uploadedFile, setUploadedFile] = useState<File>();
+
+	useEffect(() => {
+		if (uploadedFile?.name) {
+			setFormData((prevState) => ({
+				...prevState,
+				fileName: uploadedFile.name,
+			}));
+		}
+	}, [uploadedFile]);
 
 	const handleSubmit = (event: FormEvent) => {
 		event.preventDefault();
 		setLoading(true);
 		if (formData)
 			savePayment(formData)
-				.then((data) => fetch("/api/revalidate"))
+				.then((_) => fetch("/api/revalidate"))
 				.catch((e) => console.log("Error", e))
-				.finally(() => setLoading(false));
+	};
+
+	const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
+		if (!event.target.files) {
+			return;
+		}
+
+		setUploadedFile(event.target.files[0]);
 	};
 
 	return (
@@ -40,6 +58,7 @@ export default function CreatePayment() {
 						onChange={(e) =>
 							setFormData({ ...formData, payee: e.target.value })
 						}
+						value={formData.payee}
 					/>
 				</div>
 				<div>
@@ -49,12 +68,16 @@ export default function CreatePayment() {
 						name="amount"
 						placeholder="Amount"
 						onChange={(e) =>
-							setFormData({ ...formData, amount: e.target.value })
+							setFormData({
+								...formData,
+								amount: e.target.value.trim(),
+							})
 						}
+						value={formData.amount}
 					/>
 				</div>
-				<label htmlFor="fromEnterprise">From</label>
 				<div>
+					<label htmlFor="fromEnterprise">From</label>
 					<input
 						className="input"
 						placeholder="From Enterprise?"
@@ -65,7 +88,12 @@ export default function CreatePayment() {
 								fromEnterprise: e.target.value,
 							})
 						}
+						value={formData.fromEnterprise}
 					/>
+				</div>
+				<div>
+					<label htmlFor="uploadImage"></label>
+					<input type="file" onChange={handleFileUpload} />
 				</div>
 				<Button type="submit" loading={loading}>
 					Submit

@@ -13,7 +13,7 @@ export const getPayements = async (): Promise<Payment[]> => {
 	return Promise.resolve(data);
 };
 
-export const savePayment = async (payload: any) => {
+export const savePayment = async (payload: Partial<Payment>) => {
 	const { data, error } = await supabase.from("Payments").insert(payload);
 	if (error) {
 		return Promise.reject(new Error("Unable to save payment"));
