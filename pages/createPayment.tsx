@@ -109,10 +109,6 @@ export default function CreatePayment() {
 					/>
 				</div>
 				<div>
-					<label htmlFor="uploadImage">Upload File</label>
-					<input type="file" onChange={handleFileUpload} />
-				</div>
-				<div>
 					<label htmlFor="status">Status:</label>
 					<select
 						className="input"
@@ -125,6 +121,10 @@ export default function CreatePayment() {
 						<option value="DONE">Done</option>
 						<option value="BLOCKED">Blocked</option>
 					</select>
+				</div>
+				<div>
+					<label htmlFor="uploadImage">Upload File</label>
+					<input type="file" onChange={handleFileUpload} />
 				</div>
 				<Button type="submit" loading={loading}>
 					Submit

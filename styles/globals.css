@@ -17,7 +17,7 @@
 		@apply text-xl font-bold
 	}
 	li {
-		@apply text-sm
+		@apply text-xs
 	}
 	.myContainer {
 		@apply lg:max-w-3xl max-w-2xl w-full mx-auto
