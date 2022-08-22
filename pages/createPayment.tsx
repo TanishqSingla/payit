@@ -9,7 +9,7 @@ export default function CreatePayment() {
 		payee: "",
 		amount: "",
 		fromEnterprise: "",
-		fileName: "",
+		fileName: null,
 		status: "TBD",
 	});
 	const [uploadedFile, setUploadedFile] = useState<File>();
@@ -95,18 +95,25 @@ export default function CreatePayment() {
 				</div>
 				<div>
 					<label htmlFor="fromEnterprise">From</label>
-					<input
+					<select
 						className="input"
-						placeholder="From Enterprise?"
-						name="fromEnterprise"
 						onChange={(e) =>
 							setFormData({
 								...formData,
 								fromEnterprise: e.target.value,
 							})
 						}
+						placeholder="From Enterprise?"
 						value={formData.fromEnterprise}
-					/>
+					>
+						<option value="Tanishq Enterprises">
+							Tanishq Enterprises
+						</option>
+						<option value="Vinayak Enterprises">
+							Vinayak Enterprises
+						</option>
+						<option value="SS Enterprises">SS Enterprises</option>
+					</select>
 				</div>
 				<div>
 					<label htmlFor="status">Status:</label>

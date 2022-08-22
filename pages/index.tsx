@@ -36,9 +36,10 @@ const Home: NextPage<HomeProps> = (props) => {
 		getPayements()
 			.then((data) => {
 				setPaymentDetails((prevState) => {
-					if(prevState === data) {
+					if (prevState === data) {
 						return;
 					}
+					fetch("/api/revalidate");
 					return data;
 				});
 			})

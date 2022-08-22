@@ -8,6 +8,6 @@ declare global {
     createdAt: Date;
     fromEnterprise: string;
     status: string; 
-    fileName?: string;
+    fileName?: string | null;
   }
 }
