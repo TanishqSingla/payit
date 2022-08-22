@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { Button } from "../components/UI/Button";
 import { savePayment, supabase } from "../utils/supabase";
@@ -13,6 +14,8 @@ export default function CreatePayment() {
 		status: "TBD",
 	});
 	const [uploadedFile, setUploadedFile] = useState<File>();
+	
+	const router = useRouter()
 
 	useEffect(() => {
 		if (uploadedFile?.name) {
@@ -45,7 +48,10 @@ export default function CreatePayment() {
 				.catch(async (e) => {
 					console.table(e);
 				})
-				.finally(() => setLoading(false));
+				.finally(() => {
+					setLoading(false)
+					router.push('/')
+				});
 	};
 
 	const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import PaymentCard from "../components/PaymentCard/PaymentCard";
 import Loading from "../components/UI/Loading";
 import { getPayements, supabase } from "../utils/supabase";
-import { HiOutlineRefresh } from "react-icons/hi";
+import { HiOutlineRefresh, HiPlus } from "react-icons/hi";
 
 interface HomeProps {
 	payments: Payment[];
@@ -92,8 +92,8 @@ const Home: NextPage<HomeProps> = (props) => {
 				</div>
 			</main>
 			<Link href="/createPayment" passHref>
-				<a className="h-12 w-12 rounded-full bg-primary text-white py-2 text-2xl fixed text-center bottom-10 right-5 md:right-20">
-					+
+				<a className="h-12 w-12 rounded-full bg-primary text-white py-2 text-2xl fixed text-center bottom-10 right-5 md:right-20 grid place-items-center">
+					<HiPlus />
 				</a>
 			</Link>
 		</>

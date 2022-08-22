@@ -38,10 +38,5 @@
 
 .accent::before {
 	content: "";
-	height: 8px;
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	@apply bg-gradient-to-r;
+	@apply bg-gradient-to-r top-0 left-0 w-full absolute h-[8px];
 }
