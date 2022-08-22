@@ -71,6 +71,7 @@ export default function CreatePayment() {
 					<input
 						className="input"
 						name="payee"
+						required
 						placeholder="Payee"
 						onChange={(e) =>
 							setFormData({ ...formData, payee: e.target.value })

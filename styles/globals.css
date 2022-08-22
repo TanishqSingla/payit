@@ -14,21 +14,34 @@
 		@apply w-[30vw] px-[.4rem] py-[.2em] border-b-2 border-b-[#0005] outline-none bg-transparent;
 	}
 	h1 {
-		@apply text-xl font-bold
+		@apply text-xl font-bold;
 	}
 	li {
-		@apply text-xs
+		@apply text-xs;
 	}
 	.myContainer {
-		@apply lg:max-w-3xl max-w-2xl w-full mx-auto
+		@apply lg:max-w-3xl max-w-2xl w-full mx-auto;
+	}
+	.cardContainer {
+		@apply sm:w-full w-[16rem] rounded-md shadow-md h-[9rem] relative overflow-hidden;
 	}
 	.title {
-		@apply text-4xl my-4
+		@apply text-4xl my-4;
 	}
 	.input {
-		@apply shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-blue-300 focus:shadow-none
+		@apply shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-blue-300 focus:shadow-none;
 	}
 	label {
-		@apply block text-gray-700 text-lg mb-2
+		@apply block text-gray-700 text-lg mb-2;
 	}
+}
+
+.accent::before {
+	content: "";
+	height: 8px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	@apply bg-gradient-to-r;
 }

@@ -19,17 +19,22 @@ const Home: NextPage<HomeProps> = (props) => {
 		setPaymentDetails(props.payments);
 	}, [props.payments]);
 
-	supabase
-		.from("Payments")
-		.on("*", (_) => {
-			getPayements()
-				.then((data) => {
-					setPaymentDetails(data);
-					fetch("/api/revalidate");
-				})
-				.catch((e) => console.log(e));
-		})
-		.subscribe();
+	useEffect(() => {
+		const subscription = supabase
+			.from("Payments")
+			.on("*", (_) => {
+				getPayements()
+					.then((data) => {
+						setPaymentDetails(data);
+						fetch("/api/revalidate");
+					})
+					.catch((e) => console.log(e));
+			})
+			.subscribe();
+		return () => {
+			subscription.unsubscribe();
+		};
+	}, []);
 
 	const handleRefresh = () => {
 		setLoading(true);
