@@ -6,13 +6,15 @@ export default function PaymentCard({
 	paymentDetails: Payment;
 }) {
 	const backgrounds: { [key: string]: string } = {
-		DONE: "before:from-green-400 before:to-lime-300",
-		TBD: "before:from-yellow-500 before:to-amber-300",
-		BLOCKED: "before:from-red-600 before:to-orange-500",
+		done: "before:from-green-400 before:to-lime-300",
+		pending: "before:from-yellow-500 before:to-amber-300",
+		blocked: "before:from-red-600 before:to-orange-500",
 	};
 	return (
 		<div
-			className={`cardContainer flex flex-col p-2 accent ${backgrounds[paymentDetails.status]} from-`}
+			className={`cardContainer flex flex-col p-2 accent ${
+				backgrounds[paymentDetails.status]
+			}`}
 		>
 			<h1>{paymentDetails.payee}</h1>
 			<div className="grow">

@@ -11,7 +11,7 @@ export default function CreatePayment() {
 		amount: "",
 		fromEnterprise: "",
 		fileName: null,
-		status: "TBD",
+		status: "pending",
 	});
 	const [uploadedFile, setUploadedFile] = useState<File>();
 	
@@ -131,9 +131,9 @@ export default function CreatePayment() {
 							setFormData({ ...formData, status: e.target.value })
 						}
 					>
-						<option value="TBD">To be done</option>
-						<option value="DONE">Done</option>
-						<option value="BLOCKED">Blocked</option>
+						<option value="pending">Pending</option>
+						<option value="done">done</option>
+						<option value="blocked">Blocked</option>
 					</select>
 				</div>
 				<div>
