@@ -40,3 +40,7 @@
 	content: "";
 	@apply bg-gradient-to-r top-0 left-0 w-full absolute h-[8px];
 }
+
+a, button {
+	-webkit-tap-highlight-color: transparent;
+}

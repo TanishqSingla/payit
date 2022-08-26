@@ -96,8 +96,8 @@ const Home: NextPage<HomeProps> = (props) => {
 								key={detail.id}
 								paymentDetails={detail}
 								footer={[
-									<div key="1">
 										<button
+											key="1"
 											className="flex items-center gap-1"
 											onClick={() => {
 												setModalDetails(detail);
@@ -106,8 +106,7 @@ const Home: NextPage<HomeProps> = (props) => {
 										>
 											<HiOutlineInformationCircle className="scale-125" />
 											More details
-										</button>
-									</div>,
+										</button>,
 								]}
 							/>
 						))}
