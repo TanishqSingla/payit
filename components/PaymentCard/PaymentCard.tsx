@@ -1,10 +1,9 @@
-import { HiOutlineInformationCircle } from "react-icons/hi";
-
-export default function PaymentCard({
-	paymentDetails,
-}: {
+interface CardProps {
 	paymentDetails: Payment;
-}) {
+	footer?: JSX.Element[]
+}
+
+export default function PaymentCard({paymentDetails, footer}: CardProps) {
 	const backgrounds: { [key: string]: string } = {
 		done: "before:from-green-400 before:to-lime-300",
 		pending: "before:from-yellow-500 before:to-amber-300",
@@ -34,10 +33,7 @@ export default function PaymentCard({
 					)}
 				</ul>
 			</div>
-			<button className="flex items-center gap-1">
-				<HiOutlineInformationCircle className="scale-125" />
-				More details
-			</button>
+			{footer?.map(e => e)}
 		</div>
 	);
 }

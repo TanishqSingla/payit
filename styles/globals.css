@@ -26,7 +26,7 @@
 		@apply sm:w-full w-[16rem] rounded-md shadow-md h-[9rem] relative overflow-hidden;
 	}
 	.title {
-		@apply text-4xl my-4;
+		@apply text-3xl my-4 font-bold;
 	}
 	.input {
 		@apply shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-blue-300 focus:shadow-none;
