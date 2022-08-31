@@ -34,6 +34,15 @@
 	label {
 		@apply block text-gray-700 text-lg mb-2;
 	}
+	.modal-details > * {
+		@apply even:bg-slate-100 flex items-center h-10
+	}
+	.modal-details input {
+		@apply w-full
+	}
+	.modal-details p {
+		@apply min-w-[6rem]
+	}
 }
 
 .accent::before {

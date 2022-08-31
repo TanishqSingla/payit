@@ -1,20 +1,31 @@
-import { FormEventHandler } from "react";
+import React, { FormEventHandler } from "react";
 
 type Props = {
-	loading: boolean;
+	loading?: boolean;
 	children: React.ReactNode;
 	disabled?: boolean;
-	type?: 'button' | 'submit';
+	type?: "button" | "submit";
+	onClick?: (e: React.MouseEvent) => void;
+	className?: string;
 };
 
-export const Button = ({ loading, children, disabled = false, type = 'button' }: Props) => {
+export const Button = ({
+	disabled = false,
+	type = "button",
+	...props
+}: Props) => {
 	return (
 		<button
 			type={type}
-			className="inline-flex items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded-md text-white bg-indigo-500 focus:outline-indigo-400 hover:bg-indigo-600 focus:bg-indigo-600 transition ease-in-out duration-150 cursor-pointer"
-			disabled={loading || disabled}
+			className={
+				"inline-flex items-center px-4 py-2 font-semibold disabled:bg-slate-500/50 disabled:cursor-not-allowed leading-6 text-sm shadow rounded-md text-white  transition ease-in-out duration-300 cursor-pointer " +
+				(props.className ||
+					"bg-indigo-500 focus:outline-indigo-400 hover:bg-indigo-600 focus:bg-indigo-600")
+			}
+			disabled={disabled}
+			onClick={props.onClick}
 		>
-			{loading && (
+			{props.loading && (
 				<svg
 					className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
 					xmlns="http://www.w3.org/2000/svg"
@@ -36,7 +47,7 @@ export const Button = ({ loading, children, disabled = false, type = 'button' }:
 					/>
 				</svg>
 			)}
-			{children}
+			{props.children}
 		</button>
 	);
 };
