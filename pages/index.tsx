@@ -122,7 +122,11 @@ const Home: NextPage<HomeProps> = (props) => {
 					visible={modalVisible}
 					onCancel={() => setModalVisible(false)}
 				>
-					<DetailsCard details={modalDetails} onCloseHandle={() => setModalVisible(false)}/>
+					<DetailsCard
+						details={modalDetails}
+						onCloseHandle={() => setModalVisible(false)}
+						handleRefresh={handleRefresh}
+					/>
 				</Modal>
 			)}
 		</>

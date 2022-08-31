@@ -1,20 +1,54 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { IoIosCloseCircleOutline, IoMdCreate, IoMdTrash } from "react-icons/io";
+import { supabase } from "../../utils/supabase";
 import { Button } from "../UI/Button";
 
 interface DetailProps {
 	details: Payment;
 	onCloseHandle: (e: React.MouseEvent) => void;
+	handleRefresh: () => void;
 }
 
-export default function DetailsCard({ details, onCloseHandle }: DetailProps) {
+export default function DetailsCard({
+	details,
+	onCloseHandle,
+	handleRefresh,
+}: DetailProps) {
 	const [status, setStatus] = useState(details.status);
 	const [saveLoading, setSaveLoading] = useState(false);
 	const [deleteLoading, setDeleteLoading] = useState(false);
 
-	const handleSave = () => {setSaveLoading(true)};
+	const handleSave = async () => {
+		if (status !== details.status) {
+			setSaveLoading(true);
+			const { data, error } = await supabase
+				.from("Payments")
+				.update({ status })
+				.eq("id", details.id);
+			if (data) {
+				handleRefresh();
+			}
+			setSaveLoading(false);
+		}
+		return;
+	};
 
-	const handleDelete = () => {setDeleteLoading(true)};
+	const handleDelete = async (e: React.MouseEvent) => {
+		setDeleteLoading(true);
+		const { data, error } = await supabase
+			.from("Payments")
+			.delete()
+			.eq("id", details.id);
+
+		if (data) {
+			setDeleteLoading(false);
+			onCloseHandle(e);
+			handleRefresh();
+		}
+		if (error) {
+			setDeleteLoading(false);
+		}
+	};
 
 	return (
 		<div
@@ -50,20 +84,36 @@ export default function DetailsCard({ details, onCloseHandle }: DetailProps) {
 						>
 							<option value="pending">Pending</option>
 							<option value="done">Done</option>
-							<option value="blocked">blocked</option>
+							<option value="blocked">Blocked</option>
 						</select>
 					</div>
 					{details.fileName && (
 						<div>
 							<p>Filename</p>
-							<a className="text-ellipsis" target="_blank">{process.env.NEXT_PUBLIC_SUPABASE_URL + details.fileName}</a>
+							<a className="text-ellipsis" target="_blank">
+								{process.env.NEXT_PUBLIC_SUPABASE_URL +
+									details.fileName}
+							</a>
 						</div>
 					)}
 				</div>
 			</div>
 			<div className="flex justify-between">
-				<Button loading={deleteLoading} className="bg-red-500" onClick={handleDelete}><IoMdTrash className="text-xl"/></Button>
-				<Button type="button" onClick={handleSave} loading={saveLoading} disabled={details.status === status}>Save</Button>
+				<Button
+					loading={deleteLoading}
+					className="bg-red-500"
+					onClick={handleDelete}
+				>
+					<IoMdTrash className="text-xl" />
+				</Button>
+				<Button
+					type="button"
+					onClick={handleSave}
+					loading={saveLoading}
+					disabled={details.status === status}
+				>
+					Save
+				</Button>
 			</div>
 		</div>
 	);
