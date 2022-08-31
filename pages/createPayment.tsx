@@ -9,7 +9,7 @@ export default function CreatePayment() {
 	const [formData, setFormData] = useState<Partial<Payment>>({
 		payee: "",
 		amount: "",
-		fromEnterprise: "",
+		fromEnterprise: "Tanishq Enterprises",
 		fileName: null,
 		status: "pending",
 	});
@@ -132,7 +132,7 @@ export default function CreatePayment() {
 						}
 					>
 						<option value="pending">Pending</option>
-						<option value="done">done</option>
+						<option value="done">Done</option>
 						<option value="blocked">Blocked</option>
 					</select>
 				</div>
