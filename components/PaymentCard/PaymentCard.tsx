@@ -1,9 +1,9 @@
 interface CardProps {
 	paymentDetails: Payment;
-	footer?: JSX.Element[]
+	footer?: JSX.Element[];
 }
 
-export default function PaymentCard({paymentDetails, footer}: CardProps) {
+export default function PaymentCard({ paymentDetails, footer }: CardProps) {
 	const backgrounds: { [key: string]: string } = {
 		done: "before:from-green-400 before:to-lime-300",
 		pending: "before:from-yellow-500 before:to-amber-300",
@@ -21,7 +21,7 @@ export default function PaymentCard({paymentDetails, footer}: CardProps) {
 					{paymentDetails.fromEnterprise && (
 						<li>from: {paymentDetails.fromEnterprise}</li>
 					)}
-					<li>Amount: {paymentDetails.amount}</li>
+					<li>Amount: ₹{paymentDetails.amount}</li>
 					<li>
 						Created At:{" "}
 						{new Date(paymentDetails.createdAt).toDateString()}
@@ -33,7 +33,7 @@ export default function PaymentCard({paymentDetails, footer}: CardProps) {
 					)}
 				</ul>
 			</div>
-			{footer?.map(e => e)}
+			{footer?.map((e) => e)}
 		</div>
 	);
 }

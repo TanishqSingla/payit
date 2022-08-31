@@ -21,6 +21,24 @@ export const savePayment = async (payment: Partial<Payment>) => {
 	return Promise.resolve(data);
 };
 
-export const deletePayment = async () => {
+export const updateStatus = async (status: string, id: string) => {
+	const { data, error } = await supabase
+		.from("Payments")
+		.update({ status })
+		.eq("id", id);
+	if (error) {
+		return Promise.reject(new Error(error.message));
+	}
+	return Promise.resolve(data);
+};
 
-}
+export const deletePayment = async (id: string) => {
+	const { data, error } = await supabase
+		.from("Payments")
+		.delete()
+		.eq("id", id);
+	if (error) {
+		return Promise.reject(new Error(error.message));
+	}
+	return Promise.resolve(data);
+};

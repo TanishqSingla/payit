@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { IoIosCloseCircleOutline, IoMdCreate, IoMdTrash } from "react-icons/io";
-import { supabase } from "../../utils/supabase";
+import { deletePayment, supabase, updateStatus } from "../../utils/supabase";
 import { Button } from "../UI/Button";
 
 interface DetailProps {
@@ -18,36 +18,28 @@ export default function DetailsCard({
 	const [saveLoading, setSaveLoading] = useState(false);
 	const [deleteLoading, setDeleteLoading] = useState(false);
 
-	const handleSave = async () => {
+	const handleSave = async (e: React.MouseEvent) => {
 		if (status !== details.status) {
 			setSaveLoading(true);
-			const { data, error } = await supabase
-				.from("Payments")
-				.update({ status })
-				.eq("id", details.id);
-			if (data) {
-				handleRefresh();
-			}
-			setSaveLoading(false);
+			updateStatus(status, details.id)
+				.then((data) => {
+					handleRefresh();
+					onCloseHandle(e);
+				})
+				.catch((e) => console.log(e))
+				.finally(() => setSaveLoading(false));
 		}
-		return;
 	};
 
 	const handleDelete = async (e: React.MouseEvent) => {
 		setDeleteLoading(true);
-		const { data, error } = await supabase
-			.from("Payments")
-			.delete()
-			.eq("id", details.id);
-
-		if (data) {
-			setDeleteLoading(false);
-			onCloseHandle(e);
-			handleRefresh();
-		}
-		if (error) {
-			setDeleteLoading(false);
-		}
+		deletePayment(details.id)
+			.then((data) => {
+				onCloseHandle(e);
+				handleRefresh();
+			})
+			.catch((e) => console.log(e))
+			.finally(() => setDeleteLoading(false));
 	};
 
 	return (
