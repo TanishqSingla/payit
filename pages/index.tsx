@@ -5,7 +5,13 @@ import { useEffect, useState } from "react";
 import PaymentCard from "../components/PaymentCard/PaymentCard";
 import Loading from "../components/UI/Loading";
 import { getPayements, supabase } from "../utils/supabase";
-import { HiOutlineRefresh, HiPlus } from "react-icons/hi";
+import {
+	HiOutlineInformationCircle,
+	HiOutlineRefresh,
+	HiPlus,
+} from "react-icons/hi";
+import Modal from "../components/UI/Modal";
+import DetailsCard from "../components/DetailsCard/DetailsCard";
 
 interface HomeProps {
 	payments: Payment[];
@@ -14,6 +20,8 @@ interface HomeProps {
 const Home: NextPage<HomeProps> = (props) => {
 	const [paymentDetails, setPaymentDetails] = useState<Payment[]>();
 	const [loading, setLoading] = useState(false);
+	const [modalVisible, setModalVisible] = useState(false);
+	const [modalDetails, setModalDetails] = useState<Payment>();
 
 	useEffect(() => {
 		setPaymentDetails(props.payments);
@@ -87,6 +95,19 @@ const Home: NextPage<HomeProps> = (props) => {
 							<PaymentCard
 								key={detail.id}
 								paymentDetails={detail}
+								footer={[
+									<button
+										key="1"
+										className="flex items-center gap-1"
+										onClick={() => {
+											setModalDetails(detail);
+											setModalVisible(true);
+										}}
+									>
+										<HiOutlineInformationCircle className="scale-125" />
+										More details
+									</button>,
+								]}
 							/>
 						))}
 				</div>
@@ -96,6 +117,18 @@ const Home: NextPage<HomeProps> = (props) => {
 					<HiPlus />
 				</a>
 			</Link>
+			{modalDetails && (
+				<Modal
+					visible={modalVisible}
+					onCancel={() => setModalVisible(false)}
+				>
+					<DetailsCard
+						details={modalDetails}
+						onCloseHandle={() => setModalVisible(false)}
+						handleRefresh={handleRefresh}
+					/>
+				</Modal>
+			)}
 		</>
 	);
 };

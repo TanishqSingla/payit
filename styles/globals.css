@@ -26,7 +26,7 @@
 		@apply sm:w-full w-[16rem] rounded-md shadow-md h-[9rem] relative overflow-hidden;
 	}
 	.title {
-		@apply text-4xl my-4;
+		@apply text-3xl my-4 font-bold;
 	}
 	.input {
 		@apply shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-blue-300 focus:shadow-none;
@@ -34,9 +34,22 @@
 	label {
 		@apply block text-gray-700 text-lg mb-2;
 	}
+	.modal-details > * {
+		@apply even:bg-slate-100 flex items-center h-10
+	}
+	.modal-details input {
+		@apply w-full
+	}
+	.modal-details p {
+		@apply min-w-[6rem]
+	}
 }
 
 .accent::before {
 	content: "";
 	@apply bg-gradient-to-r top-0 left-0 w-full absolute h-[8px];
+}
+
+a, button {
+	-webkit-tap-highlight-color: transparent;
 }
