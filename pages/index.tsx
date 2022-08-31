@@ -96,17 +96,17 @@ const Home: NextPage<HomeProps> = (props) => {
 								key={detail.id}
 								paymentDetails={detail}
 								footer={[
-										<button
-											key="1"
-											className="flex items-center gap-1"
-											onClick={() => {
-												setModalDetails(detail);
-												setModalVisible(true);
-											}}
-										>
-											<HiOutlineInformationCircle className="scale-125" />
-											More details
-										</button>,
+									<button
+										key="1"
+										className="flex items-center gap-1"
+										onClick={() => {
+											setModalDetails(detail);
+											setModalVisible(true);
+										}}
+									>
+										<HiOutlineInformationCircle className="scale-125" />
+										More details
+									</button>,
 								]}
 							/>
 						))}
@@ -117,12 +117,14 @@ const Home: NextPage<HomeProps> = (props) => {
 					<HiPlus />
 				</a>
 			</Link>
-			<Modal
-				visible={modalVisible}
-				onCancel={() => setModalVisible(false)}
-			>
-				<DetailsCard details={props.payments[0]} />
-			</Modal>
+			{modalDetails && (
+				<Modal
+					visible={modalVisible}
+					onCancel={() => setModalVisible(false)}
+				>
+					<DetailsCard details={modalDetails} onCloseHandle={() => setModalVisible(false)}/>
+				</Modal>
+			)}
 		</>
 	);
 };
