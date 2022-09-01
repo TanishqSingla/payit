@@ -67,11 +67,10 @@ const Home: NextPage<HomeProps> = (props) => {
 				<meta name="description" content="A simple payment reminder" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-
 			<main className="myContainer">
 				<div className="flex h-8 items-center text-sm mx-auto w-[16rem] sm:w-full">
 					<button
-						className="flex items-center"
+						className="flex items-center dark:text-onPrimary"
 						onClick={handleRefresh}
 					>
 						<HiOutlineRefresh
@@ -104,7 +103,7 @@ const Home: NextPage<HomeProps> = (props) => {
 											setModalVisible(true);
 										}}
 									>
-										<HiOutlineInformationCircle className="scale-125" />
+										<HiOutlineInformationCircle className="scale-110 mx-1" />
 										More details
 									</button>,
 								]}

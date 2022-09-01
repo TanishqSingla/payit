@@ -42,3 +42,11 @@ export const deletePayment = async (id: string) => {
 	}
 	return Promise.resolve(data);
 };
+
+export const deleteFile = async (filename: string) => {
+	const {data, error} = await supabase.storage.from('documents').remove([filename])
+	if(error) {
+		return Promise.reject(new Error(error.message))
+	}
+	return Promise.resolve(data);
+}

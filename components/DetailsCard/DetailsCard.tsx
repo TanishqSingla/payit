@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { IoIosCloseCircleOutline, IoMdCreate, IoMdTrash } from "react-icons/io";
-import { deletePayment, supabase, updateStatus } from "../../utils/supabase";
+import { deleteFile, deletePayment, supabase, updateStatus } from "../../utils/supabase";
 import { Button } from "../UI/Button";
 
 interface DetailProps {
@@ -33,6 +33,9 @@ export default function DetailsCard({
 
 	const handleDelete = async (e: React.MouseEvent) => {
 		setDeleteLoading(true);
+		if(details.fileName) {
+			deleteFile(details.fileName).then(data => console.log(data)).catch(e => console.log(e));
+		}
 		deletePayment(details.id)
 			.then((data) => {
 				onCloseHandle(e);
@@ -82,9 +85,8 @@ export default function DetailsCard({
 					{details.fileName && (
 						<div>
 							<p>Filename</p>
-							<a className="text-ellipsis" target="_blank">
-								{process.env.NEXT_PUBLIC_SUPABASE_URL +
-									details.fileName}
+							<a className="bg-blue-50 text-blue-500 px-2 rounded-lg text-ellipsis" target="_blank" rel="noopener noreferrer" href={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/documents/${details.fileName}`}>
+								{details.fileName}
 							</a>
 						</div>
 					)}
