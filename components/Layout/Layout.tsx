@@ -6,7 +6,7 @@ type LayoutProps = {
 
 export default function Layout({children}: LayoutProps) {
 	return (
-		<div className="dark:bg-dark-grey min-h-[100vh]">
+		<div className="dark:bg-dark-grey min-h-[100vh] transition-colors duration-500">
 			<Header />
 			{children}
 		</div>
