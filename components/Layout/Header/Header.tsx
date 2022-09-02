@@ -1,9 +1,24 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoMdMoon, IoMdSunny } from "react-icons/io";
 
 export default function Header() {
 	const [theme, setTheme] = useState('');
+
+	useEffect(() => {
+		const body = document.querySelector('body')
+		if(localStorage.getItem('theme') === null) {
+			return;
+		}
+		if(localStorage.getItem('theme') === 'dark') {
+			body?.classList.add('dark');
+			setTheme('dark');
+		}
+		if(localStorage.getItem('theme') === '') {
+			body?.classList.remove('dark');
+			setTheme('')
+		}
+	}, [theme])
 
 	return (
 		<div className="h-16 flex items-center shadow dark:shadow-slate-600/50 mb-8">
@@ -13,11 +28,12 @@ export default function Header() {
 				</Link>
 				<button
 					onClick={() => {
-						document.body.classList.toggle("dark");
-						setTheme(!theme ? 'dark' : '');
+						setTheme(!theme ? 'dark': "");
+						document.body.classList.toggle('dark')
+						localStorage.setItem('theme', !theme ? 'dark' : "")
 					}}
 				>
-					{theme ? <IoMdMoon /> : <IoMdSunny />}
+					{!theme ? <IoMdMoon /> : <IoMdSunny />}
 				</button>
 			</div>
 			{/* <div className="grow"></div> */}
