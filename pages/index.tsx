@@ -112,7 +112,7 @@ const Home: NextPage<HomeProps> = (props) => {
 				</div>
 			</main>
 			<Link href="/createPayment" passHref>
-				<a className="h-12 w-12 rounded-full bg-primary text-white py-2 text-2xl fixed text-center bottom-10 right-5 md:right-20 grid place-items-center">
+				<a className="transition-colors duration-500 h-12 w-12 rounded-full bg-primary dark:bg-dark-secondary text-white py-2 text-2xl fixed text-center bottom-10 right-5 md:right-20 grid place-items-center">
 					<HiPlus />
 				</a>
 			</Link>

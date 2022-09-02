@@ -7,7 +7,7 @@ interface ModalProps {
 }
 
 export default function Modal(props: ModalProps) {
-  return <div className={`h-full w-full bg-[#212121]/50 fixed top-0 flex justify-center items-center ${props.visible ? '' : 'hidden'}`} onClick={props.onCancel}>
+  return <div className={`h-full w-full bg-dark-surface/50 dark:bg-dark-primary/70 fixed top-0 flex justify-center items-center ${props.visible ? '' : 'hidden'}`} onClick={props.onCancel}>
     {props.children}
   </div>
 }

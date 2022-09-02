@@ -6,7 +6,6 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "dark-grey": "#121212",
         primary: "#6200ee",
         "primary-variant": "#3700B3",
         secondary: "#03DAC6",
@@ -19,6 +18,10 @@ module.exports = {
         onBackground: "#000",
         onSurface: "#000",
         onError: "#fff",
+        "dark-primary": "#121212",
+        "dark-surface": "#212121",
+        "dark-surface-3": "#333333",
+        "dark-secondary": "#03DAC5"
       },
       boxShadow: {
         surface: ["0 1px 3px rgba(0,0,0,0.12)", "0 1px 2px rgba(0,0,0,0.24)"],
