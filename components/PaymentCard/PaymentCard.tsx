@@ -32,7 +32,7 @@ export default function PaymentCard({ paymentDetails, footer }: CardProps) {
 						<li className="truncate">
 							file:{" "}
 							<a
-								className="bg-blue-50 text-blue-500 px-2 rounded-lg"
+								className="bg-blue-50 text-blue-500 px-2 dark:text-blue-300 rounded-lg dark:bg-blue-50/20"
 								href={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/documents/${paymentDetails.fileName}`}
 								target="_blank"
 								rel="noopener noreferrer"

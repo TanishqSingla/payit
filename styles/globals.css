@@ -56,5 +56,5 @@ button {
 }
 
 input[type='file'] {
-	@apply file:bg-primary/50 dark:file:bg-secondary/50 dark:text-slate-50 file:border-none file:rounded-full file:text-white file:px-2 file:p-1
+	@apply file:bg-primary/20 file:text-primary/50 dark:file:text-secondary dark:file:bg-secondary/30 dark:text-slate-50 file:border-none file:rounded-full file:px-2 file:p-1 file:cursor-pointer
 }

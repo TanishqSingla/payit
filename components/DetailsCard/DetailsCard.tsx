@@ -93,7 +93,7 @@ export default function DetailsCard({
 						<div className="truncate">
 							<p className="px-2">Filename</p>
 							<a
-								className="bg-blue-50 text-blue-500 px-2 rounded-lg text-ellipsis"
+								className="bg-blue-50 text-blue-500 dark:text-blue-300 dark:bg-blue-50/20 px-2 rounded-lg text-ellipsis"
 								target="_blank"
 								rel="noopener noreferrer"
 								href={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/documents/${details.fileName}`}

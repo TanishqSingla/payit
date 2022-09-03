@@ -1,4 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient, PostgrestResponse } from "@supabase/supabase-js";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
 const supaKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
@@ -6,11 +6,12 @@ const supaKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
 export const supabase = createClient(supabaseUrl, supaKey);
 
 export const getPayements = async (): Promise<Payment[]> => {
-	const { data, error } = await supabase.from("Payments").select("*");
+	const { data, error } = await supabase.from("Payments").select("*") as PostgrestResponse<Payment>;
 	if (error) {
 		return Promise.reject(new Error("Unable to get payment details"));
 	}
-	return Promise.resolve(data);
+	const sortedData = [...data].sort((a, b) => a.createdAt < b.createdAt ? 1 : -1)
+	return Promise.resolve(sortedData);
 };
 
 export const savePayment = async (payment: Partial<Payment>) => {
