@@ -6,11 +6,15 @@ const supaKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
 export const supabase = createClient(supabaseUrl, supaKey);
 
 export const getPayements = async (): Promise<Payment[]> => {
-	const { data, error } = await supabase.from("Payments").select("*") as PostgrestResponse<Payment>;
+	const { data, error } = (await supabase
+		.from("Payments")
+		.select("*")) as PostgrestResponse<Payment>;
 	if (error) {
 		return Promise.reject(new Error("Unable to get payment details"));
 	}
-	const sortedData = [...data].sort((a, b) => a.createdAt < b.createdAt ? 1 : -1)
+	const sortedData = [...data].sort((a, b) =>
+		a.createdAt < b.createdAt ? 1 : -1
+	);
 	return Promise.resolve(sortedData);
 };
 
@@ -45,14 +49,39 @@ export const deletePayment = async (id: string) => {
 };
 
 export const deleteFile = async (filename: string) => {
-	const {data, error} = await supabase.storage.from('documents').remove([filename])
-	if(error) {
-		return Promise.reject(new Error(error.message))
+	const { data, error } = await supabase.storage
+		.from("documents")
+		.remove([filename]);
+	if (error) {
+		return Promise.reject(new Error(error.message));
 	}
 	return Promise.resolve(data);
-}
+};
 
 export const isUserAuthenticated = () => {
 	const user = supabase.auth.user();
 	return user ? true : false;
-}
+};
+
+export const supabaseLogin = async ({
+	email,
+	password,
+}: {
+	[key: string]: string;
+}) => {
+	const { user, session, error } = await supabase.auth.signIn({
+		email,
+		password,
+	});
+	if (error) {
+		Promise.reject(new Error(error?.message));
+	}
+	Promise.resolve({ user, session });
+};
+
+export const supabaseLogout = async () => {
+	const { error } = await supabase.auth.signOut();
+	if (error) {
+		Promise.reject(error.message);
+	}
+};
