@@ -4,17 +4,23 @@
 @tailwind variants;
 
 @layer components {
+	.surface-text {
+		@apply text-black dark:text-white
+	}
+	.surface {
+		@apply bg-surface dark:bg-dark-surface shadow surface-text
+	}
+	.surface-1 {
+		@apply bg-surface dark:bg-dark-surface-3 shadow surface-text
+	}
 	.btn {
 		@apply text-onSurface font-semibold h-12 w-16 bg-surface rounded-md p-2 shadow-[0_1px_3px_rgba(0,0,0,0.12),0_1px_2px_rgba(0,0,0,0.24)];
-	}
-	.btn-primary {
-		@apply text-onPrimary font-thin tracking-wider h-12 min-w-[5rem] bg-primary rounded-3xl px-4 shadow-[0_1px_3px_rgba(0,0,0,0.12),0_1px_2px_rgba(0,0,0,0.24)] active:shadow-none;
 	}
 	.auth-input {
 		@apply w-[30vw] px-[.4rem] py-[.2em] border-b-2 border-b-[#0005] outline-none bg-transparent;
 	}
 	h1 {
-		@apply text-xl dark:text-white;
+		@apply text-xl surface-text;
 	}
 	li {
 		@apply text-xs;
@@ -29,10 +35,10 @@
 		@apply text-3xl my-4 font-bold;
 	}
 	.input {
-		@apply shadow appearance-none border dark:border-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-blue-300 focus:shadow-none dark:bg-dark-surface-3 dark:text-onPrimary;
+		@apply shadow surface-text appearance-none border dark:border-none rounded w-full py-2 px-3 leading-tight focus:outline-blue-300 focus:shadow-none dark:bg-dark-surface-3;
 	}
 	label {
-		@apply block text-gray-700 text-lg mb-2 dark:text-onPrimary;
+		@apply block text-lg mb-2 surface-text;
 	}
 	.modal-details > * {
 		@apply even:bg-slate-100 flex items-center h-10 dark:even:bg-dark-surface;

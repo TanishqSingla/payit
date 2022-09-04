@@ -13,7 +13,7 @@ export default function PaymentCard({ paymentDetails, footer }: CardProps) {
 	};
 	return (
 		<div
-			className={`cardContainer dark:text-white flex flex-col p-2 accent dark:bg-dark-surface transition-colors duration-500 ${
+			className={`cardContainer surface flex flex-col p-2 accent transition-colors duration-500 ${
 				backgrounds[paymentDetails.status]
 			}`}
 		>

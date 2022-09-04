@@ -70,7 +70,7 @@ export default function CreatePayment() {
 			</Head>
 			<form
 				onSubmit={handleSubmit}
-				className="max-w-2xl mx-auto shadow-md rounded px-8 pt-6 pb-8 mb-4 space-y-4 dark:bg-dark-surface"
+				className="max-w-2xl mx-auto rounded px-8 pt-6 pb-8 mb-4 space-y-4 surface"
 			>
 				<div>
 					<label htmlFor="payee">Payee</label>

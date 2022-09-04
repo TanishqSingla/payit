@@ -54,7 +54,7 @@ export default function DetailsCard({
 
 	return (
 		<div
-			className="aspect-square w-[32rem] md:scale-100 scale-75 bg-white rounded-lg z-50 p-4 px-8 space-y-4 flex flex-col dark:bg-dark-surface-3 dark:text-onPrimary"
+			className="aspect-square w-[32rem] md:scale-100 scale-75 rounded-lg z-50 p-4 px-8 space-y-4 flex flex-col surface-1"
 			onClick={(e) => e.stopPropagation()}
 		>
 			<div className="flex justify-between items-center">

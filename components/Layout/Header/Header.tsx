@@ -22,7 +22,7 @@ export default function Header() {
 
 	return (
 		<div className="h-16 flex items-center shadow dark:shadow-slate-600/50 mb-8">
-			<div className="lg:max-w-3xl max-w-2xl sm:w-full w-[70%] mx-auto h-full flex items-center justify-between text-onBackground dark:text-onPrimary">
+			<div className="lg:max-w-3xl max-w-2xl sm:w-full w-[70%] mx-auto h-full flex items-center justify-between surface-text">
 				<Link href="/" passHref>
 					<a className="text-3xl">Payit</a>
 				</Link>
@@ -33,7 +33,7 @@ export default function Header() {
 						localStorage.setItem('theme', !theme ? 'dark' : "")
 					}}
 				>
-					{!theme ? <IoMdMoon /> : <IoMdSunny />}
+					{!theme ? <IoMdMoon /> : <IoMdSunny fill="yellow"/>}
 				</button>
 			</div>
 			{/* <div className="grow"></div> */}

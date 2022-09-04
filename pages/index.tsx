@@ -70,7 +70,7 @@ const Home: NextPage<HomeProps> = (props) => {
 			<main className="myContainer">
 				<div className="flex h-8 items-center text-sm mx-auto w-[16rem] sm:w-full">
 					<button
-						className="flex items-center dark:text-onPrimary"
+						className="flex items-center surface-text"
 						onClick={handleRefresh}
 					>
 						<HiOutlineRefresh
