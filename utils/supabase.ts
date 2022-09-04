@@ -51,3 +51,8 @@ export const deleteFile = async (filename: string) => {
 	}
 	return Promise.resolve(data);
 }
+
+export const isUserAuthenticated = () => {
+	const user = supabase.auth.user();
+	return user ? true : false;
+}
