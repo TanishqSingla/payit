@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { IoMdMoon, IoMdSunny } from "react-icons/io";
-import { isUserAuthenticated } from "../../../utils/supabase";
+import { isUserAuthenticated, supabaseLogout } from "../../../utils/supabase";
+import { Button } from "../../UI/Button";
 
 export default function Header() {
 	const [theme, setTheme] = useState('');
@@ -27,6 +28,7 @@ export default function Header() {
 				<Link href={`/${isUserAuthenticated() ? 'payments' : ''}`} passHref>
 					<a className="text-3xl">Payit</a>
 				</Link>
+				<div className="flex gap-8">
 				<button
 					onClick={() => {
 						setTheme(!theme ? 'dark': "");
@@ -36,6 +38,8 @@ export default function Header() {
 				>
 					{!theme ? <IoMdMoon /> : <IoMdSunny fill="yellow"/>}
 				</button>
+					{isUserAuthenticated() && <Button type="button" onClick={supabaseLogout}>Log out</Button>}
+				</div>
 			</div>
 			{/* <div className="grow"></div> */}
 			{/* <nav>

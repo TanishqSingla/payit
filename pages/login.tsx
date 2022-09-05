@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../components/UI/Button";
 import { isUserAuthenticated, supabaseLogin } from "../utils/supabase";
 
@@ -13,14 +13,16 @@ export default function Login() {
 	useEffect(() => {
 		if (isUserAuthenticated()) {
 			router.push("/payments");
+			return;
 		}
 	}, []);
 
-	const loginHandle = () => {
+	const loginHandle = (e: React.FormEvent) => {
+		e.preventDefault()
 		setLoading(true);
 		supabaseLogin({ email, password })
 			.then((data) => {
-				router.push("/");
+				router.push("/payments");
 			})
 			.catch((e) => {
 				console.log("error logging in", e);
