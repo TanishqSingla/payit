@@ -1,18 +1,18 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { IoMdMoon, IoMdSunny } from "react-icons/io";
 import { isUserAuthenticated, supabaseLogout } from "../../../utils/supabase";
 import { Button } from "../../UI/Button";
 
-export default function Header() {
+type HeaderProps = {
+	authenticated: boolean;
+	setAuthenticated: Dispatch<SetStateAction<boolean>>
+}
+
+export default function Header(props: HeaderProps) {
 	const router = useRouter();
 	const [theme, setTheme] = useState("");
-	const [userAuthenticated, setUserAuthenticated] = useState(false);
-
-	useEffect(() => {
-		setUserAuthenticated(isUserAuthenticated());
-	}, []);
 
 	useEffect(() => {
 		const body = document.querySelector("body");
@@ -31,14 +31,17 @@ export default function Header() {
 
 	const logoutHandle = () => {
 		supabaseLogout()
-			.then(() => router.push("/"))
+			.then(() => {
+				props.setAuthenticated(false);	
+				router.push("/")
+			})
 			.catch((e) => console.log(e));
 	};
 
 	return (
 		<div className="h-16 flex items-center shadow dark:shadow-slate-600/50 mb-8">
 			<div className="lg:max-w-3xl max-w-2xl sm:w-full w-[70%] mx-auto h-full flex items-center justify-between surface-text">
-				{userAuthenticated ? (
+				{props.authenticated ? (
 					<Link href="/payments" passHref>
 						<a className="text-3xl">Payit</a>
 					</Link>
@@ -57,7 +60,7 @@ export default function Header() {
 					>
 						{!theme ? <IoMdMoon /> : <IoMdSunny fill="yellow" />}
 					</button>
-					{userAuthenticated && (
+					{props.authenticated && (
 						<Button type="button" onClick={logoutHandle}>
 							Log out
 						</Button>

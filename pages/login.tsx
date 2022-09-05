@@ -1,17 +1,22 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Button } from "../components/UI/Button";
-import { isUserAuthenticated, supabaseLogin } from "../utils/supabase";
+import { supabaseLogin } from "../utils/supabase";
 
-export default function Login() {
+type componentProps = {
+	authenticated: boolean;
+	setAuthenticated: Dispatch<SetStateAction<boolean>>
+}
+
+export default function Login(props: componentProps) {
 	const router = useRouter();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
-		if (isUserAuthenticated()) {
+		if (props.authenticated) {
 			router.push("/payments");
 			return;
 		}
@@ -22,6 +27,7 @@ export default function Login() {
 		setLoading(true);
 		supabaseLogin({ email, password })
 			.then((data) => {
+				props.setAuthenticated(true);
 				router.push("/payments");
 			})
 			.catch((e) => {
@@ -55,6 +61,7 @@ export default function Login() {
 					<label htmlFor="payee">Password</label>
 					<input
 						className="input"
+						type="password"
 						name="password"
 						required
 						placeholder="password"
