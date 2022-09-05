@@ -11,9 +11,13 @@ export default function SignOn() {
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
-		if (!isUserAuthenticated()) {
-			router.push("/");
+		const urlFragment = window.location.hash
+		if(urlFragment) {
+			if(urlFragment.includes('type=invite')) {
+				return;
+			}
 		}
+		router.push('/')
 	}, []);
 
 	useEffect(() => {
