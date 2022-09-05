@@ -2,32 +2,38 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Button } from "../components/UI/Button";
-import { isUserAuthenticated } from "../utils/supabase";
+import { isUserAuthenticated, udpatePassword } from "../utils/supabase";
 
 export default function SignOn() {
-  const router = useRouter()
+	const router = useRouter();
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if(!isUserAuthenticated()) {
-      router.push('/');
-    }
-  }, [])
+	useEffect(() => {
+		if (!isUserAuthenticated()) {
+			router.push("/");
+		}
+	}, []);
 
-  useEffect(() => {
-    if(confirmPassword !== password) {
-      return; 
-    }
-  }, [confirmPassword])
+	useEffect(() => {
+		if (confirmPassword !== password) {
+			return;
+		}
+	}, [confirmPassword]);
 
 	const signOnHandle = () => {
-    if(password !== confirmPassword) {
-      return;
-    }
-    setLoading(true);
-  };
+		if (password !== confirmPassword) {
+			return;
+		}
+		udpatePassword(password)
+			.then((data) => {
+				router.push("/payments");
+			})
+			.catch((e) => console.log(e))
+			.finally(() => setLoading(false));
+		setLoading(true);
+	};
 
 	return (
 		<>
@@ -47,7 +53,7 @@ export default function SignOn() {
 					<input
 						className="input"
 						name="email"
-            type="password"
+						type="password"
 						required
 						placeholder="Enter password"
 						onChange={(e) => setPassword(e.target.value)}
@@ -67,7 +73,7 @@ export default function SignOn() {
 					/>
 				</div>
 				<Button type="submit" loading={loading}>
-          Set Password
+					Set Password
 				</Button>
 			</form>
 		</>

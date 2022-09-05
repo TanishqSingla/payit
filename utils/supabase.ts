@@ -85,3 +85,11 @@ export const supabaseLogout = async () => {
 		Promise.reject(error.message);
 	}
 };
+
+export const udpatePassword = async (password: string) => {
+	const { user, error } = await supabase.auth.update({ password });
+	if(error) {
+		Promise.reject(new Error('error updating password'));
+	}
+	Promise.resolve(user);
+};
