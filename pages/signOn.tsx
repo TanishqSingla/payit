@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../components/UI/Button";
 import { isUserAuthenticated, udpatePassword } from "../utils/supabase";
 
@@ -22,7 +22,8 @@ export default function SignOn() {
 		}
 	}, [confirmPassword]);
 
-	const signOnHandle = () => {
+	const signOnHandle = (e: React.FormEvent) => {
+		e.preventDefault();	
 		if (password !== confirmPassword) {
 			return;
 		}
@@ -52,7 +53,7 @@ export default function SignOn() {
 					<label htmlFor="email">Password</label>
 					<input
 						className="input"
-						name="email"
+						name="password"
 						type="password"
 						required
 						placeholder="Enter password"
