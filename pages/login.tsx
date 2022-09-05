@@ -6,9 +6,9 @@ import { isUserAuthenticated, supabaseLogin } from "../utils/supabase";
 
 export default function Login() {
 	const router = useRouter();
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false)
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		if (isUserAuthenticated()) {
@@ -16,13 +16,17 @@ export default function Login() {
 		}
 	}, []);
 
-  const loginHandle = () => {
-    supabaseLogin({email, password}).then(data => {
-      router.push('/');
-    }).catch(e => {
-      console.log('error logging in', e)
-    })
-  }
+	const loginHandle = () => {
+		setLoading(true);
+		supabaseLogin({ email, password })
+			.then((data) => {
+				router.push("/");
+			})
+			.catch((e) => {
+				console.log("error logging in", e);
+			})
+			.finally(() => setLoading(false));
+	};
 
 	return (
 		<>
@@ -30,7 +34,10 @@ export default function Login() {
 				<title>Payit | Login</title>
 				<meta name="description" content="Login at Payit"></meta>
 			</Head>
-			<form className="max-w-2xl mx-auto rounded px-8 pt-6 pb-8 mb-4 space-y-4 surface" onSubmit={loginHandle}>
+			<form
+				className="max-w-2xl mx-auto rounded px-8 pt-6 pb-8 mb-4 space-y-4 surface"
+				onSubmit={loginHandle}
+			>
 				<div>
 					<label htmlFor="email">Email</label>
 					<input
@@ -53,7 +60,9 @@ export default function Login() {
 						value={password}
 					/>
 				</div>
-        <Button type="submit" loading={loading}>Login</Button>
+				<Button type="submit" loading={loading}>
+					Login
+				</Button>
 			</form>
 		</>
 	);

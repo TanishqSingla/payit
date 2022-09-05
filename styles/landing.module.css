@@ -1,13 +1,12 @@
 .landingButton {
 	color: white;
-	padding: 1rem;
-	aspect-ratio: 16 / 8;
-	width: 160px;
+	width: 11rem;
+	height: 3rem;
 	font-size: 1.5rem;
 	position: relative;
 	overflow: hidden;
 	z-index: 3;
-	@apply rounded-full;
+	border-radius: 3px;
 }
 .landingButton::after {
 	position: absolute;
