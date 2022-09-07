@@ -1,6 +1,7 @@
 import { GetStaticProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import {
 	HiOutlineInformationCircle,
@@ -11,7 +12,7 @@ import DetailsCard from "../components/DetailsCard/DetailsCard";
 import PaymentCard from "../components/PaymentCard/PaymentCard";
 import Loading from "../components/UI/Loading";
 import Modal from "../components/UI/Modal";
-import { getPayments, supabase } from "../utils/supabase";
+import { getPayments, isUserAuthenticated, supabase } from "../utils/supabase";
 
 function Payments(props: { payments: Payment[] }) {
 	const [payments, setPayments] = useState<Payment[]>();
@@ -19,11 +20,17 @@ function Payments(props: { payments: Payment[] }) {
 	const [modalDetails, setModalDetails] = useState<Payment>();
 	const [modalVisible, setModalVisible] = useState(false);
 
+	const router = useRouter();
+
 	useEffect(() => {
 		setPayments(props.payments);
 	}, [props.payments]);
 
 	useEffect(() => {
+		if(!isUserAuthenticated()) {
+			router.push('/');
+		}
+
 		const subscription = supabase
 			.from("Payments")
 			.on("*", (_) => {

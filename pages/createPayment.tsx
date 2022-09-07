@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { Button } from "../components/UI/Button";
-import { savePayment, supabase } from "../utils/supabase";
+import { isUserAuthenticated, savePayment, supabase } from "../utils/supabase";
 
 export default function CreatePayment() {
 	const [loading, setLoading] = useState(false);
@@ -25,6 +25,12 @@ export default function CreatePayment() {
 			}));
 		}
 	}, [uploadedFile]);
+
+	useEffect(() => {
+		if(!isUserAuthenticated()) {
+			router.push('/')
+		}
+	}, [])
 
 	const handleSubmit = (event: FormEvent) => {
 		event.preventDefault();
