@@ -2,37 +2,50 @@ import { GetStaticProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { HiOutlineInformationCircle, HiOutlineRefresh, HiPlus } from "react-icons/hi";
+import {
+	HiOutlineInformationCircle,
+	HiOutlineRefresh,
+	HiPlus,
+} from "react-icons/hi";
 import DetailsCard from "../components/DetailsCard/DetailsCard";
 import PaymentCard from "../components/PaymentCard/PaymentCard";
 import Loading from "../components/UI/Loading";
 import Modal from "../components/UI/Modal";
-import { getPayements } from "../utils/supabase";
+import { getPayments, supabase } from "../utils/supabase";
 
-function Payments(props: { payments: Payment[] }) {
-  const [payments, setPayments] = useState<Payment[]>();
+function Payments() {
+	const [payments, setPayments] = useState<Payment[]>();
 	const [loading, setLoading] = useState(false);
-  const [modalDetails, setModalDetails] = useState<Payment>();
-  const [modalVisible, setModalVisible] = useState(false);
+	const [modalDetails, setModalDetails] = useState<Payment>();
+	const [modalVisible, setModalVisible] = useState(false);
 
 	useEffect(() => {
-		setPayments(props.payments);
-	}, [props.payments]);
-
-const handleRefresh = () => {
 		setLoading(true);
-		getPayements()
-			.then((data) => {
-				setPayments((prevState) => {
-					if (prevState === data) {
-						return;
-					}
-					fetch("/api/revalidate");
-					return data;
-				});
+		getPaymentData();
+	}, []);
+
+	useEffect(() => {
+		const subscription = supabase
+			.from("Payments")
+			.on("*", (_) => {
+				getPaymentData();
 			})
+			.subscribe();
+		return () => {
+			subscription.unsubscribe();
+		};
+	}, []);
+
+	const getPaymentData = () => {
+		getPayments()
+			.then((data) => setPayments(data))
 			.catch((e) => console.log(e))
 			.finally(() => setLoading(false));
+	};
+
+	const handleRefresh = () => {
+		setLoading(true);
+		getPaymentData();
 	};
 
 	return (
@@ -108,13 +121,3 @@ const handleRefresh = () => {
 }
 
 export default Payments;
-
-export const getStaticProps: GetStaticProps = async (_) => {
-	const payments = await getPayements();
-
-	return {
-		props: {
-			payments,
-		},
-	};
-};

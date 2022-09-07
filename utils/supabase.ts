@@ -5,7 +5,7 @@ const supaKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
 
 export const supabase = createClient(supabaseUrl, supaKey);
 
-export const getPayements = async (): Promise<Payment[]> => {
+export const getPayments = async (): Promise<Payment[]> => {
 	const { data, error } = (await supabase
 		.from("Payments")
 		.select("*")) as PostgrestResponse<Payment>;

@@ -43,14 +43,13 @@ export default function CreatePayment() {
 								.eq("fileName", uploadedFile.name);
 						}
 					}
-					fetch("/api/revalidate");
+					router.push('/')
 				})
 				.catch(async (e) => {
 					console.table(e);
 				})
 				.finally(() => {
 					setLoading(false)
-					router.push('/')
 				});
 	};
 
