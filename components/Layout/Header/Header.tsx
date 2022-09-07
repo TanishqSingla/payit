@@ -7,12 +7,13 @@ import { Button } from "../../UI/Button";
 
 type HeaderProps = {
 	authenticated: boolean;
-	setAuthenticated: Dispatch<SetStateAction<boolean>>
-}
+	setAuthenticated: Dispatch<SetStateAction<boolean>>;
+};
 
 export default function Header(props: HeaderProps) {
 	const router = useRouter();
 	const [theme, setTheme] = useState("");
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		const body = document.querySelector("body");
@@ -30,12 +31,14 @@ export default function Header(props: HeaderProps) {
 	}, [theme]);
 
 	const logoutHandle = () => {
+		setLoading(true);
 		supabaseLogout()
 			.then(() => {
-				props.setAuthenticated(false);	
-				router.push("/")
+				props.setAuthenticated(false);
+				router.push("/");
 			})
-			.catch((e) => console.log(e));
+			.catch((e) => console.log(e))
+			.finally(() => setLoading(false));
 	};
 
 	return (
@@ -61,7 +64,11 @@ export default function Header(props: HeaderProps) {
 						{!theme ? <IoMdMoon /> : <IoMdSunny fill="yellow" />}
 					</button>
 					{props.authenticated && (
-						<Button type="button" onClick={logoutHandle}>
+						<Button
+							type="button"
+							onClick={logoutHandle}
+							loading={loading}
+						>
 							Log out
 						</Button>
 					)}

@@ -13,16 +13,15 @@ import Loading from "../components/UI/Loading";
 import Modal from "../components/UI/Modal";
 import { getPayments, supabase } from "../utils/supabase";
 
-function Payments() {
+function Payments(props: { payments: Payment[] }) {
 	const [payments, setPayments] = useState<Payment[]>();
 	const [loading, setLoading] = useState(false);
 	const [modalDetails, setModalDetails] = useState<Payment>();
 	const [modalVisible, setModalVisible] = useState(false);
 
 	useEffect(() => {
-		setLoading(true);
-		getPaymentData();
-	}, []);
+		setPayments(props.payments);
+	}, [props.payments]);
 
 	useEffect(() => {
 		const subscription = supabase
@@ -38,7 +37,10 @@ function Payments() {
 
 	const getPaymentData = () => {
 		getPayments()
-			.then((data) => setPayments(data))
+			.then((data) => {
+				setPayments(data);
+				fetch("/api/revalidate");
+			})
 			.catch((e) => console.log(e))
 			.finally(() => setLoading(false));
 	};
@@ -119,5 +121,15 @@ function Payments() {
 		</>
 	);
 }
+
+export const getStaticProps: GetStaticProps = async (_) => {
+	const payments = await getPayments();
+
+	return {
+		props: {
+			payments,
+		},
+	};
+};
 
 export default Payments;

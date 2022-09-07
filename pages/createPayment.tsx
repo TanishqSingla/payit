@@ -14,8 +14,8 @@ export default function CreatePayment() {
 		status: "pending",
 	});
 	const [uploadedFile, setUploadedFile] = useState<File>();
-	
-	const router = useRouter()
+
+	const router = useRouter();
 
 	useEffect(() => {
 		if (uploadedFile?.name) {
@@ -43,13 +43,14 @@ export default function CreatePayment() {
 								.eq("fileName", uploadedFile.name);
 						}
 					}
-					router.push('/')
+					fetch("/api/revalidate");
+					router.push("/");
 				})
 				.catch(async (e) => {
 					console.table(e);
 				})
 				.finally(() => {
-					setLoading(false)
+					setLoading(false);
 				});
 	};
 
@@ -139,7 +140,11 @@ export default function CreatePayment() {
 					<label htmlFor="uploadImage">Upload File</label>
 					<input type="file" onChange={handleFileUpload} />
 				</div>
-				<Button className="dark:bg-dark-secondary bg-primary" type="submit" loading={loading}>
+				<Button
+					className="dark:bg-dark-secondary bg-primary"
+					type="submit"
+					loading={loading}
+				>
 					Submit
 				</Button>
 			</form>
