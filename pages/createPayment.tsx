@@ -50,7 +50,7 @@ export default function CreatePayment() {
 						}
 					}
 					fetch("/api/revalidate");
-					router.push("/");
+					router.push("/payments");
 				})
 				.catch(async (e) => {
 					console.table(e);
