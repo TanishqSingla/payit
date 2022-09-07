@@ -50,13 +50,13 @@ export default function CreatePayment() {
 						}
 					}
 					fetch("/api/revalidate");
-					router.push("/payments");
 				})
 				.catch(async (e) => {
 					console.table(e);
 				})
 				.finally(() => {
 					setLoading(false);
+					router.push("/payments");
 				});
 	};
 

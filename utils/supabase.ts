@@ -41,7 +41,7 @@ export const deletePayment = async (id: string) => {
 	const { data, error } = await supabase
 		.from("Payments")
 		.delete()
-		.eq("id", id);
+		.match({ id });
 	if (error) {
 		return Promise.reject(new Error(error.message));
 	}
