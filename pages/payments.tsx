@@ -1,4 +1,4 @@
-import { GetStaticProps } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -14,7 +14,7 @@ import Loading from "../components/UI/Loading";
 import Modal from "../components/UI/Modal";
 import { getPayments, isUserAuthenticated, supabase } from "../utils/supabase";
 
-function Payments(props: { payments: Payment[] }) {
+const Payments: NextPage<{payments: Payment[]}> = (props) => {
 	const [payments, setPayments] = useState<Payment[]>();
 	const [loading, setLoading] = useState(false);
 	const [modalDetails, setModalDetails] = useState<Payment>();
@@ -132,7 +132,7 @@ function Payments(props: { payments: Payment[] }) {
 
 export const getStaticProps: GetStaticProps = async (_) => {
 	const payments = await getPayments();
-
+	
 	return {
 		props: {
 			payments,
