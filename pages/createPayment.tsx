@@ -27,10 +27,10 @@ export default function CreatePayment() {
 	}, [uploadedFile]);
 
 	useEffect(() => {
-		if(!isUserAuthenticated()) {
-			router.push('/')
+		if (!isUserAuthenticated()) {
+			router.push("/");
 		}
-	}, [])
+	}, []);
 
 	const handleSubmit = (event: FormEvent) => {
 		event.preventDefault();
@@ -49,7 +49,6 @@ export default function CreatePayment() {
 								.eq("fileName", uploadedFile.name);
 						}
 					}
-					fetch("/api/revalidate");
 				})
 				.catch(async (e) => {
 					console.table(e);
