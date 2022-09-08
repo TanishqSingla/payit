@@ -35,6 +35,7 @@ function Payments(props: { payments: Payment[] }) {
 			.from("Payments")
 			.on("*", (_) => {
 				getPaymentData();
+				fetch('/api/revalidate');
 			})
 			.subscribe();
 		return () => {
