@@ -49,7 +49,6 @@ export default function CreatePayment() {
 								.eq("fileName", uploadedFile.name);
 						}
 					}
-					fetch("/api/revalidate");
 				})
 				.catch(async (e) => {
 					console.table(e);

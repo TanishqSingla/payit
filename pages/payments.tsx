@@ -1,4 +1,3 @@
-import { GetStaticProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -14,7 +13,7 @@ import Loading from "../components/UI/Loading";
 import Modal from "../components/UI/Modal";
 import { getPayments, isUserAuthenticated, supabase } from "../utils/supabase";
 
-function Payments(props: { payments: Payment[] }) {
+function Payments() {
 	const [payments, setPayments] = useState<Payment[]>();
 	const [loading, setLoading] = useState(false);
 	const [modalDetails, setModalDetails] = useState<Payment>();
@@ -23,8 +22,9 @@ function Payments(props: { payments: Payment[] }) {
 	const router = useRouter();
 
 	useEffect(() => {
-		setPayments(props.payments);
-	}, [props.payments]);
+		setLoading(true);
+		getPaymentData();
+	}, []);
 
 	useEffect(() => {
 		if(!isUserAuthenticated()) {
@@ -35,7 +35,6 @@ function Payments(props: { payments: Payment[] }) {
 			.from("Payments")
 			.on("*", (_) => {
 				getPaymentData();
-				fetch('/api/revalidate');
 			})
 			.subscribe();
 		return () => {
@@ -47,7 +46,6 @@ function Payments(props: { payments: Payment[] }) {
 		getPayments()
 			.then((data) => {
 				setPayments(data);
-				fetch("/api/revalidate");
 			})
 			.catch((e) => console.log(e))
 			.finally(() => setLoading(false));
@@ -129,15 +127,5 @@ function Payments(props: { payments: Payment[] }) {
 		</>
 	);
 }
-
-export const getStaticProps: GetStaticProps = async (_) => {
-	const payments = await getPayments();
-
-	return {
-		props: {
-			payments,
-		},
-	};
-};
 
 export default Payments;
