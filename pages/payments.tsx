@@ -1,3 +1,4 @@
+import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -13,7 +14,7 @@ import Loading from "../components/UI/Loading";
 import Modal from "../components/UI/Modal";
 import { getPayments, isUserAuthenticated, supabase } from "../utils/supabase";
 
-function Payments() {
+const Payments: NextPage<{ payments: Payment[] }> = (props) => {
 	const [payments, setPayments] = useState<Payment[]>();
 	const [loading, setLoading] = useState(false);
 	const [modalDetails, setModalDetails] = useState<Payment>();
@@ -27,8 +28,8 @@ function Payments() {
 	}, []);
 
 	useEffect(() => {
-		if(!isUserAuthenticated()) {
-			router.push('/');
+		if (!isUserAuthenticated()) {
+			router.push("/");
 		}
 
 		const subscription = supabase
@@ -126,6 +127,16 @@ function Payments() {
 			)}
 		</>
 	);
-}
+};
+
+export const getServerSideProps: GetServerSideProps = async ({req, res}) => {
+	const payments = await getPayments();
+
+	return {
+		props: {
+			payments,
+		},
+	};
+};
 
 export default Payments;

@@ -27,10 +27,10 @@ export default function CreatePayment() {
 	}, [uploadedFile]);
 
 	useEffect(() => {
-		if(!isUserAuthenticated()) {
-			router.push('/')
+		if (!isUserAuthenticated()) {
+			router.push("/");
 		}
-	}, [])
+	}, []);
 
 	const handleSubmit = (event: FormEvent) => {
 		event.preventDefault();
