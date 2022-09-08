@@ -23,9 +23,8 @@ const Payments: NextPage<{ payments: Payment[] }> = (props) => {
 	const router = useRouter();
 
 	useEffect(() => {
-		setLoading(true);
-		getPaymentData();
-	}, []);
+		setPayments(props.payments);
+	}, [props.payments])
 
 	useEffect(() => {
 		if (!isUserAuthenticated()) {
