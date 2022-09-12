@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { IoIosCloseCircleOutline, IoMdCreate, IoMdTrash } from "react-icons/io";
 import {
 	deleteFile,
@@ -22,6 +22,14 @@ export default function DetailsCard({
 	const [status, setStatus] = useState(details.status);
 	const [saveLoading, setSaveLoading] = useState(false);
 	const [deleteLoading, setDeleteLoading] = useState(false);
+	const [file, setFile] = useState<File>();
+
+	const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
+		if (!e.target.files) {
+			return;
+		}
+		setFile(e.target.files[0]);
+	};
 
 	const handleSave = async (e: React.MouseEvent) => {
 		if (status !== details.status) {
@@ -33,6 +41,15 @@ export default function DetailsCard({
 				})
 				.catch((e) => console.log(e))
 				.finally(() => setSaveLoading(false));
+		}
+		if (file) {
+			await supabase
+				.from("Payments")
+				.update({ fileName: file.name })
+				.eq("id", details.id);
+			await supabase.storage.from("documents").upload(file.name, file);
+			onCloseHandle(e);
+			handleRefresh();
 		}
 	};
 
@@ -89,9 +106,9 @@ export default function DetailsCard({
 							<option value="blocked">Blocked</option>
 						</select>
 					</div>
-					{details.fileName && (
-						<div className="truncate">
-							<p className="px-2">Filename</p>
+					<div className="truncate">
+						<p className="px-2">Filename</p>
+						{details.fileName ? (
 							<a
 								className="bg-blue-50 text-blue-500 dark:text-blue-300 dark:bg-blue-50/20 px-2 rounded-lg text-ellipsis"
 								target="_blank"
@@ -100,8 +117,10 @@ export default function DetailsCard({
 							>
 								{details.fileName}
 							</a>
-						</div>
-					)}
+						) : (
+							<input type="file" onChange={handleFileUpload} />
+						)}
+					</div>
 				</div>
 			</div>
 			<div className="flex justify-between">
@@ -116,7 +135,7 @@ export default function DetailsCard({
 					type="button"
 					onClick={handleSave}
 					loading={saveLoading}
-					disabled={details.status === status}
+					disabled={details.status === status && !file}
 					className="dark:bg-dark-secondary bg-primary"
 				>
 					Save
