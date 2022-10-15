@@ -17,7 +17,7 @@ export default function Login(props: componentProps) {
 
 	useEffect(() => {
 		if (props.authenticated) {
-			router.push("/payments");
+			router.replace("/payments");
 			return;
 		}
 	}, []);

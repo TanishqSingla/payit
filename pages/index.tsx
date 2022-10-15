@@ -10,7 +10,7 @@ const Home: NextPage = () => {
 	const router = useRouter();
 	useEffect(() => {
 		if (isUserAuthenticated()) {
-			router.push("/payments");
+			router.replace("/payments");
 		}
 	}, []);
 
