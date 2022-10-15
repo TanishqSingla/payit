@@ -2,12 +2,12 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Button } from "../components/UI/Button";
-import { supabaseLogin } from "../utils/supabase";
+import { isUserAuthenticated, supabaseLogin } from "../utils/supabase";
 
 type componentProps = {
 	authenticated: boolean;
-	setAuthenticated: Dispatch<SetStateAction<boolean>>
-}
+	setAuthenticated: Dispatch<SetStateAction<boolean>>;
+};
 
 export default function Login(props: componentProps) {
 	const router = useRouter();
@@ -16,14 +16,13 @@ export default function Login(props: componentProps) {
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
-		if (props.authenticated) {
-			router.replace("/payments");
-			return;
-		}
-	}, []);
+		isUserAuthenticated()
+			.then((_) => router.replace("/payments"))
+			.catch((_) => setLoading(false));
+	}, [router]);
 
 	const loginHandle = (e: React.FormEvent) => {
-		e.preventDefault()
+		e.preventDefault();
 		setLoading(true);
 		supabaseLogin({ email, password })
 			.then((data) => {
@@ -42,37 +41,39 @@ export default function Login(props: componentProps) {
 				<title>Payit | Login</title>
 				<meta name="description" content="Login at Payit"></meta>
 			</Head>
-			<form
-				className="max-w-2xl mx-auto rounded px-8 pt-6 pb-8 mb-4 space-y-4 surface"
-				onSubmit={loginHandle}
-			>
-				<div>
-					<label htmlFor="email">Email</label>
-					<input
-						className="input"
-						name="email"
-						required
-						placeholder="example@example.com"
-						onChange={(e) => setEmail(e.target.value)}
-						value={email}
-					/>
-				</div>
-				<div>
-					<label htmlFor="payee">Password</label>
-					<input
-						className="input"
-						type="password"
-						name="password"
-						required
-						placeholder="password"
-						onChange={(e) => setPassword(e.target.value)}
-						value={password}
-					/>
-				</div>
-				<Button type="submit" loading={loading}>
-					Login
-				</Button>
-			</form>
+			<main>
+				<form
+					className="max-w-2xl mx-auto rounded px-8 pt-6 pb-8 mb-4 space-y-4 surface"
+					onSubmit={loginHandle}
+				>
+					<div>
+						<label htmlFor="email">Email</label>
+						<input
+							className="input"
+							name="email"
+							required
+							placeholder="example@example.com"
+							onChange={(e) => setEmail(e.target.value)}
+							value={email}
+						/>
+					</div>
+					<div>
+						<label htmlFor="payee">Password</label>
+						<input
+							className="input"
+							type="password"
+							name="password"
+							required
+							placeholder="password"
+							onChange={(e) => setPassword(e.target.value)}
+							value={password}
+						/>
+					</div>
+					<Button type="submit" loading={loading}>
+						Login
+					</Button>
+				</form>
+			</main>
 		</>
 	);
 }

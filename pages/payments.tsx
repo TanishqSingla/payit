@@ -23,14 +23,14 @@ const Payments: NextPage<{ payments: Payment[] }> = (props) => {
 	const router = useRouter();
 
 	useEffect(() => {
-		setPayments(props.payments);
-	}, [props.payments])
+		isUserAuthenticated().catch(() => router.replace("/"));
+	}, [router]);
 
 	useEffect(() => {
-		if (!isUserAuthenticated()) {
-			router.push("/");
-		}
+		setPayments(props.payments);
+	}, [props.payments]);
 
+	useEffect(() => {
 		const subscription = supabase
 			.from("Payments")
 			.on("*", (_) => {
@@ -69,9 +69,7 @@ const Payments: NextPage<{ payments: Payment[] }> = (props) => {
 						className="flex items-center surface-text"
 						onClick={handleRefresh}
 					>
-						<HiOutlineRefresh
-							className={loading ? "animate-spin" : ""}
-						/>
+						<HiOutlineRefresh className={loading ? "animate-spin" : ""} />
 						Refresh
 					</button>
 				</div>
@@ -113,10 +111,7 @@ const Payments: NextPage<{ payments: Payment[] }> = (props) => {
 				</a>
 			</Link>
 			{modalDetails && (
-				<Modal
-					visible={modalVisible}
-					onCancel={() => setModalVisible(false)}
-				>
+				<Modal visible={modalVisible} onCancel={() => setModalVisible(false)}>
 					<DetailsCard
 						details={modalDetails}
 						onCloseHandle={() => setModalVisible(false)}
@@ -128,7 +123,7 @@ const Payments: NextPage<{ payments: Payment[] }> = (props) => {
 	);
 };
 
-export const getServerSideProps: GetServerSideProps = async ({req, res}) => {
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 	const payments = await getPayments();
 
 	return {
