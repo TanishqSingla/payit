@@ -3,7 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import Loading from "../components/UI/Loading";
+import { Spinner } from "../components/UI/Spinner";
 import styles from "../styles/landing.module.css";
 import { isUserAuthenticated } from "../utils/supabase";
 
@@ -28,7 +28,7 @@ const Home: NextPage = () => {
 				<main
 					className="grid place-items-center grow"
 				>
-					{loading ? <h1>Payit</h1> : <div className="flex flex-col items-center justify-center max-w-[24rem]">
+					{loading ? <Spinner /> : <div className="flex flex-col items-center justify-center max-w-[24rem]">
 						<h1 className="md:text-8xl text-6xl font-bold mb-8 text-center">
 							Welcome to Payit!
 						</h1>
