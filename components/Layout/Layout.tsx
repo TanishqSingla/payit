@@ -9,7 +9,7 @@ type LayoutProps = {
 
 export default function Layout(props: LayoutProps) {
 	return (
-		<div className="dark:bg-dark-primary min-h-[100vh] transition-colors duration-500">
+		<div className="dark:bg-dark-primary min-h-[100vh] transition-colors duration-500 flex flex-col">
 			<Header authenticated={props.authenticated} setAuthenticated={props.setAuthenticated}/>
 			{props.children}
 		</div>

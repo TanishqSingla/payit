@@ -8,16 +8,13 @@ function MyApp({ Component, pageProps }: AppProps) {
 	const [authenticated, setAuthenticated] = useState(false);
 
 	useEffect(() => {
-		if(isUserAuthenticated()) {
-			setAuthenticated(true);
-		}
-	}, [])
+		isUserAuthenticated()
+			.then((_) => setAuthenticated(true))
+			.catch((_) => setAuthenticated(false));
+	}, []);
 
 	return (
-		<Layout
-			setAuthenticated={setAuthenticated}
-			authenticated={authenticated}
-		>
+		<Layout setAuthenticated={setAuthenticated} authenticated={authenticated}>
 			<Component
 				setAuthenticated={setAuthenticated}
 				authenticated={authenticated}

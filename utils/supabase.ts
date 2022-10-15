@@ -60,7 +60,10 @@ export const deleteFile = async (filename: string) => {
 
 export const isUserAuthenticated = () => {
 	const user = supabase.auth.user();
-	return user ? true : false;
+	if (user) {
+		return Promise.resolve("user is authenticated");
+	}
+	return Promise.reject("user is not authenticated");
 };
 
 export const supabaseLogin = async ({

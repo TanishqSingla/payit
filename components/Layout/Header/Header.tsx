@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { IoMdMoon, IoMdSunny } from "react-icons/io";
-import { isUserAuthenticated, supabaseLogout } from "../../../utils/supabase";
+import { supabaseLogout } from "../../../utils/supabase";
 import { Button } from "../../UI/Button";
 
 type HeaderProps = {
