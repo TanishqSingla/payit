@@ -1,4 +1,4 @@
-import type { GetServerSideProps, NextPage } from "next";
+import type {  NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -14,7 +14,7 @@ import Loading from "../components/UI/Loading";
 import Modal from "../components/UI/Modal";
 import { getPayments, isUserAuthenticated, supabase } from "../utils/supabase";
 
-const Payments: NextPage<{ payments: Payment[] }> = (props) => {
+const Payments: NextPage<{ payments: Payment[] }> = () => {
 	const [payments, setPayments] = useState<Payment[]>();
 	const [loading, setLoading] = useState(false);
 	const [modalDetails, setModalDetails] = useState<Payment>();
@@ -23,12 +23,16 @@ const Payments: NextPage<{ payments: Payment[] }> = (props) => {
 	const router = useRouter();
 
 	useEffect(() => {
-		isUserAuthenticated().catch(() => router.replace("/"));
+		setLoading(true);
+		isUserAuthenticated()
+			.then((_) => setLoading(false))
+			.catch(() => router.replace("/"));
 	}, [router]);
 
 	useEffect(() => {
-		setPayments(props.payments);
-	}, [props.payments]);
+		setLoading(true);
+		getPaymentData();
+	}, [])
 
 	useEffect(() => {
 		const subscription = supabase
@@ -121,16 +125,6 @@ const Payments: NextPage<{ payments: Payment[] }> = (props) => {
 			)}
 		</>
 	);
-};
-
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-	const payments = await getPayments();
-
-	return {
-		props: {
-			payments,
-		},
-	};
 };
 
 export default Payments;
