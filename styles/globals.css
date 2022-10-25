@@ -26,7 +26,7 @@
 		@apply text-xs;
 	}
 	.myContainer {
-		@apply lg:max-w-3xl max-w-2xl w-full mx-auto;
+		@apply lg:max-w-5xl max-w-2xl w-full mx-auto;
 	}
 	.cardContainer {
 		@apply sm:w-full w-[16rem] rounded-md shadow-md h-[9rem] relative overflow-hidden;
