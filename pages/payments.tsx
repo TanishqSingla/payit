@@ -1,4 +1,4 @@
-import type {  NextPage } from "next";
+import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -16,7 +16,7 @@ import { getPayments, isUserAuthenticated, supabase } from "../utils/supabase";
 
 const Payments: NextPage<{ payments: Payment[] }> = () => {
 	const [payments, setPayments] = useState<Payment[]>();
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(true);
 	const [modalDetails, setModalDetails] = useState<Payment>();
 	const [modalVisible, setModalVisible] = useState(false);
 
@@ -32,7 +32,7 @@ const Payments: NextPage<{ payments: Payment[] }> = () => {
 	useEffect(() => {
 		setLoading(true);
 		getPaymentData();
-	}, [])
+	}, []);
 
 	useEffect(() => {
 		const subscription = supabase
@@ -60,10 +60,12 @@ const Payments: NextPage<{ payments: Payment[] }> = () => {
 		getPaymentData();
 	};
 
+	let pendingStatus = payments?.filter(payment => payment.status === 'pending').length
+
 	return (
 		<>
 			<Head>
-				<title>Payit | Payments</title>
+				<title>{pendingStatus ? `🟡(${pendingStatus})` : ''} Payit | Payments</title>
 				<meta name="description" content="A simple payment reminder" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
