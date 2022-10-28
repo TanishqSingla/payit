@@ -40,7 +40,7 @@ export default function Accounts() {
 			return;
 		}
 		amountInput.current = amount;
-		updateAccountAmount(account.id, amount)
+		updateAccountAmount(account.id, amount).finally(() => setIsDisable(true));
 	}
 
 	const onAmountChange = async (

@@ -37,9 +37,7 @@ const Payments: NextPage<{ payments: Payment[] }> = () => {
 	useEffect(() => {
 		const subscription = supabase
 			.from("Payments")
-			.on("*", (_) => {
-				getPaymentData();
-			})
+			.on("*", (_) => getPaymentData())
 			.subscribe();
 		return () => {
 			subscription.unsubscribe();
@@ -48,9 +46,7 @@ const Payments: NextPage<{ payments: Payment[] }> = () => {
 
 	const getPaymentData = () => {
 		getPayments()
-			.then((data) => {
-				setPayments(data);
-			})
+			.then((data) => setPayments(data))
 			.catch((e) => console.log(e))
 			.finally(() => setLoading(false));
 	};
