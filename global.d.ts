@@ -12,7 +12,8 @@ declare global {
 	}
 
 	type AccountDetails = {
+		id: number,
 		name: string;
-		amount: number;
+		amount: string;
 	};
 }

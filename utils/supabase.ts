@@ -97,11 +97,11 @@ export const udpatePassword = async (password: string) => {
 	return Promise.resolve(user);
 };
 
-export const updateAccountAmount = async (id: string, amount: number) => {
+export const updateAccountAmount = async (id: number, amount: string) => {
 	const { data, error } = await supabase
 		.from("Accounts")
 		.update({ amount })
-		.eq(id, "id");
+		.eq("id", id);
 	if (error) {
 		return Promise.reject(error.message);
 	}
@@ -111,7 +111,7 @@ export const updateAccountAmount = async (id: string, amount: number) => {
 export const getAccountDetails = async () => {
 	const { data, error } = (await supabase
 		.from("Accounts")
-		.select("name,amount")) as PostgrestResponse<AccountDetails>;
+		.select("*")) as PostgrestResponse<AccountDetails>;
 	if (error) {
 		return Promise.reject(error.message);
 	}

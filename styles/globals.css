@@ -70,5 +70,5 @@ input[type="file"] {
 }
 
 .account-detail {
-	@apply flex justify-between dark:text-white even:bg-dark-surface-3 p-4 items-center rounded-md;
+	@apply flex justify-between dark:text-white even:dark:bg-dark-surface-3 p-4 even:bg-gray-200 items-center rounded-md;
 }
