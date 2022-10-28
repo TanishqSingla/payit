@@ -64,11 +64,7 @@ export default function Header(props: HeaderProps) {
 						{!theme ? <IoMdMoon /> : <IoMdSunny fill="yellow" />}
 					</button>
 					{props.authenticated && (
-						<Button
-							type="button"
-							onClick={logoutHandle}
-							loading={loading}
-						>
+						<Button type="button" onClick={logoutHandle} loading={loading}>
 							Log out
 						</Button>
 					)}

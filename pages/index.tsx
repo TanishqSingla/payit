@@ -13,9 +13,11 @@ const Home: NextPage = () => {
 	const router = useRouter();
 
 	useEffect(() => {
-		isUserAuthenticated().then(_ => {
-			router.replace('/payments');
-		}).catch(_ => setLoading(false))
+		isUserAuthenticated()
+			.then((_) => {
+				router.replace("/payments");
+			})
+			.catch((_) => setLoading(false));
 	}, [router]);
 
 	return (
@@ -25,23 +27,22 @@ const Home: NextPage = () => {
 				<meta name="description" content="A simple payment reminder" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-				<main
-					className="grid place-items-center grow"
-				>
-					{loading ? <Spinner /> : <div className="flex flex-col items-center justify-center max-w-[24rem]">
+			<main className="grid place-items-center grow">
+				{loading ? (
+					<Spinner />
+				) : (
+					<div className="flex flex-col items-center justify-center max-w-[24rem]">
 						<h1 className="md:text-8xl text-6xl font-bold mb-8 text-center">
 							Welcome to Payit!
 						</h1>
 						<Link href="/login" passHref>
 							<a>
-								<button className={styles.landingButton}>
-									Sign In
-								</button>
+								<button className={styles.landingButton}>Sign In</button>
 							</a>
 						</Link>
-					</div>}
-					
-				</main>
+					</div>
+				)}
+			</main>
 		</>
 	);
 };

@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from "react";
-import { IoIosCloseCircleOutline, IoMdCreate, IoMdTrash } from "react-icons/io";
+import { IoIosCloseCircleOutline, IoMdTrash } from "react-icons/io";
 import {
 	deleteFile,
 	deletePayment,

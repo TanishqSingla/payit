@@ -60,12 +60,16 @@ const Payments: NextPage<{ payments: Payment[] }> = () => {
 		getPaymentData();
 	};
 
-	let pendingStatus = payments?.filter(payment => payment.status === 'pending').length
+	let pendingStatus = payments?.filter(
+		(payment) => payment.status === "pending"
+	).length;
 
 	return (
 		<>
 			<Head>
-				<title>{pendingStatus ? `🟡(${pendingStatus})` : ''} Payit | Payments</title>
+				<title>
+					{pendingStatus ? `🟡(${pendingStatus})` : ""} Payit | Payments
+				</title>
 				<meta name="description" content="A simple payment reminder" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>

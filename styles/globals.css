@@ -5,13 +5,13 @@
 
 @layer components {
 	.surface-text {
-		@apply text-black dark:text-white
+		@apply text-black dark:text-white;
 	}
 	.surface {
-		@apply bg-surface dark:bg-dark-surface shadow surface-text
+		@apply bg-surface dark:bg-dark-surface shadow surface-text;
 	}
 	.surface-1 {
-		@apply bg-surface dark:bg-dark-surface-3 shadow surface-text
+		@apply bg-surface dark:bg-dark-surface-3 shadow surface-text;
 	}
 	.btn {
 		@apply text-onSurface font-semibold h-12 w-16 bg-surface rounded-md p-2 shadow-[0_1px_3px_rgba(0,0,0,0.12),0_1px_2px_rgba(0,0,0,0.24)];
@@ -29,14 +29,12 @@
 		@apply lg:max-w-5xl max-w-2xl w-full mx-auto;
 	}
 	.cardContainer {
-		@apply sm:w-full w-[16rem] rounded-md shadow-md h-[9rem] relative overflow-hidden;
+		@apply sm:w-full w-64 rounded-md shadow-md h-36 relative overflow-hidden;
 	}
 	.title {
 		@apply text-3xl my-4 font-bold;
 	}
-	.input {
-		@apply shadow surface-text appearance-none border dark:border-none rounded w-full py-2 px-3 leading-tight focus:outline-blue-300 focus:shadow-none dark:bg-dark-surface-3;
-	}
+
 	label {
 		@apply block text-lg mb-2 surface-text;
 	}
@@ -53,7 +51,7 @@
 
 .accent::before {
 	content: "";
-	@apply bg-gradient-to-r top-0 left-0 w-full absolute h-[8px];
+	@apply bg-gradient-to-r top-0 left-0 w-full absolute h-2;
 }
 
 a,
@@ -61,6 +59,16 @@ button {
 	-webkit-tap-highlight-color: transparent;
 }
 
-input[type='file'] {
-	@apply file:bg-primary/20 file:text-primary/50 dark:file:text-secondary dark:file:bg-secondary/30 dark:text-slate-50 file:border-none file:rounded-full file:px-2 file:p-1 file:cursor-pointer
+input[type="file"] {
+	@apply file:bg-primary/20 file:text-primary/50 dark:file:text-secondary dark:file:bg-secondary/30 dark:text-slate-50 file:border-none file:rounded-full file:px-2 file:p-1 file:cursor-pointer;
+}
+.input {
+	@apply shadow surface-text appearance-none border dark:border-none rounded w-full py-2 px-3 leading-tight focus:outline-blue-300 focus:shadow-none dark:bg-dark-surface-3;
+}
+.amount {
+	@apply shadow surface-text appearance-none border dark:border-none rounded w-48 py-2 px-3 leading-tight focus:outline-blue-300 focus:shadow-none dark:bg-dark-surface text-right;
+}
+
+.account-detail {
+	@apply flex justify-between dark:text-white even:bg-dark-surface-3 p-4 items-center rounded-md;
 }

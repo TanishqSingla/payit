@@ -11,13 +11,13 @@ export default function SignOn() {
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
-		const urlFragment = window.location.hash
-		if(urlFragment) {
-			if(urlFragment.includes('type=invite')) {
+		const urlFragment = window.location.hash;
+		if (urlFragment) {
+			if (urlFragment.includes("type=invite")) {
 				return;
 			}
 		}
-		router.push('/')
+		router.push("/");
 	}, []);
 
 	useEffect(() => {
@@ -27,7 +27,7 @@ export default function SignOn() {
 	}, [confirmPassword]);
 
 	const signOnHandle = (e: React.FormEvent) => {
-		e.preventDefault();	
+		e.preventDefault();
 		if (password !== confirmPassword) {
 			return;
 		}
@@ -44,10 +44,7 @@ export default function SignOn() {
 		<>
 			<Head>
 				<title>Payit | Sign On</title>
-				<meta
-					name="description"
-					content="You've been invited to payit"
-				/>
+				<meta name="description" content="You've been invited to payit" />
 			</Head>
 			<form
 				className="max-w-2xl mx-auto rounded px-8 pt-6 pb-8 mb-4 space-y-4 surface"

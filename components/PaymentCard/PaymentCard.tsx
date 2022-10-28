@@ -25,8 +25,7 @@ export default function PaymentCard({ paymentDetails, footer }: CardProps) {
 					)}
 					<li>Amount: ₹{paymentDetails.amount}</li>
 					<li>
-						Created At:{" "}
-						{new Date(paymentDetails.createdAt).toDateString()}
+						Created At: {new Date(paymentDetails.createdAt).toDateString()}
 					</li>
 					{paymentDetails?.fileName && (
 						<li className="truncate">

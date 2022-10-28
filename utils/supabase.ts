@@ -85,14 +85,35 @@ export const supabaseLogin = async ({
 export const supabaseLogout = async () => {
 	const { error } = await supabase.auth.signOut();
 	if (error) {
-		Promise.reject(error.message);
+		return Promise.reject(error.message);
 	}
 };
 
 export const udpatePassword = async (password: string) => {
 	const { user, error } = await supabase.auth.update({ password });
 	if (error) {
-		Promise.reject(new Error("error updating password"));
+		return Promise.reject(new Error("error updating password"));
 	}
-	Promise.resolve(user);
+	return Promise.resolve(user);
+};
+
+export const updateAccountAmount = async (id: string, amount: number) => {
+	const { data, error } = await supabase
+		.from("Accounts")
+		.update({ amount })
+		.eq(id, "id");
+	if (error) {
+		return Promise.reject(error.message);
+	}
+	return Promise.resolve(data);
+};
+
+export const getAccountDetails = async () => {
+	const { data, error } = (await supabase
+		.from("Accounts")
+		.select("name,amount")) as PostgrestResponse<AccountDetails>;
+	if (error) {
+		return Promise.reject(error.message);
+	}
+	return Promise.resolve(data);
 };

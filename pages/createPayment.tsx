@@ -27,7 +27,7 @@ export default function CreatePayment() {
 	}, [uploadedFile]);
 
 	useEffect(() => {
-		isUserAuthenticated().catch(_ => router.replace('/'))
+		isUserAuthenticated().catch((_) => router.replace("/"));
 	}, [router]);
 
 	const handleSubmit = (event: FormEvent) => {
