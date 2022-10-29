@@ -1,8 +1,17 @@
+import { useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { Accounts, CreatePaymentIcon, Payment } from "../public/icons";
+import { isUserAuthenticated } from "../utils/supabase";
+import { useRouter } from "next/router";
 
 export default function Dashboard() {
+	const router = useRouter()
+
+	useEffect(() => {
+		isUserAuthenticated().catch(() => router.replace('/'))
+	}, [router]);
+
 	return (
 		<>
 			<Head>
@@ -29,9 +38,9 @@ export default function Dashboard() {
 							</Link>
 						</div>
 						<div className="dashboard-button">
-							<Link href="payments" passHref>
+							<Link href="createPayment" passHref>
 								<a>
-									<CreatePaymentIcon size="4rem"/>
+									<CreatePaymentIcon size="4rem" />
 									<p className="w-16 text-center leading-3">Create Payment</p>
 								</a>
 							</Link>

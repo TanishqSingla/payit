@@ -26,7 +26,6 @@ const Payments: NextPage<{ payments: Payment[] }> = () => {
 		isUserAuthenticated()
 			.then((_) => getPaymentData())
 			.catch(() => router.replace("/"))
-			.finally(() => setLoading(false));
 	}, [router]);
 
 	useEffect(() => {

@@ -15,7 +15,7 @@ const Home: NextPage = () => {
 	useEffect(() => {
 		isUserAuthenticated()
 			.then((_) => {
-				router.replace("/payments");
+				router.replace("/dashboard");
 			})
 			.catch((_) => setLoading(false));
 	}, [router]);

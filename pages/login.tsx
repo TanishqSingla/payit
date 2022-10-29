@@ -17,7 +17,7 @@ export default function Login(props: componentProps) {
 
 	useEffect(() => {
 		isUserAuthenticated()
-			.then((_) => router.replace("/payments"))
+			.then((_) => router.replace("/dashboard"))
 			.catch((_) => setLoading(false));
 	}, [router]);
 
@@ -27,7 +27,7 @@ export default function Login(props: componentProps) {
 		supabaseLogin({ email, password })
 			.then((data) => {
 				props.setAuthenticated(true);
-				router.replace("/payments");
+				router.replace("/dashboard");
 			})
 			.catch((e) => {
 				console.log("error logging in", e);

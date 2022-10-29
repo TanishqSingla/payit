@@ -45,7 +45,7 @@ export default function Header(props: HeaderProps) {
 		<div className="h-16 flex items-center shadow dark:shadow-slate-600/50 mb-8">
 			<div className="lg:max-w-3xl max-w-2xl sm:w-full w-[70%] mx-auto h-full flex items-center justify-between surface-text">
 				{props.authenticated ? (
-					<Link href="/payments" passHref>
+					<Link href="/dashboard" passHref>
 						<a className="text-3xl">Payit</a>
 					</Link>
 				) : (
