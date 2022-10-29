@@ -23,7 +23,6 @@ const Payments: NextPage<{ payments: Payment[] }> = () => {
 	const router = useRouter();
 
 	useEffect(() => {
-		setLoading(true);
 		isUserAuthenticated()
 			.then((_) => getPaymentData())
 			.catch(() => router.replace("/"))

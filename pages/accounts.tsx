@@ -65,46 +65,47 @@ export default function Accounts() {
 				<title>Payit | Accounts</title>
 				<meta name="description" content="Account details" />
 			</Head>
-			{loading ? (
-				<Spinner />
-			) : (
-				<main className="myContainer">
-					<div className="flex justify-between max-w-3xl mx-auto">
-						<button
-							className="flex items-center surface-text"
-							onClick={handleRefresh}
-						>
-							<HiOutlineRefresh className={loading ? "animate-spin" : ""} />
-							Refresh
-						</button>
-						<button
-							onClick={() => setIsDisable(!isDisable)}
-							className="surface-text"
-						>
-							{isDisable ? "Edit" : "Stop Edit"}
-						</button>
-					</div>
-					<div className="max-w-3xl mx-auto space-y-4">
-						{details &&
-							details.map((account: AccountDetails) => {
-								return (
-									<div className="account-detail" key={account.id}>
-										<p>{account.name}</p>
-										<input
-											className="amount"
-											type="number"
-											defaultValue={account.amount}
-											disabled={isDisable}
-											onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-												onAmountChange(e, account)
-											}
-										/>
-									</div>
-								);
-							})}
-					</div>
-				</main>
-			)}
+			<main className="myContainer">
+				{loading ? (
+					<Spinner />
+				) : (
+					<>
+						<div className="flex justify-between max-w-3xl mx-auto">
+							<button
+								className="flex items-center surface-text"
+								onClick={handleRefresh}
+							>
+								<HiOutlineRefresh className={loading ? "animate-spin" : ""} />
+								Refresh
+							</button>
+							<button
+								onClick={() => setIsDisable(!isDisable)}
+								className="surface-text"
+							>
+								{isDisable ? "Edit" : "Stop Edit"}
+							</button>
+						</div>
+						<div className="max-w-3xl mx-auto space-y-4">
+							{details &&
+								details.map((account: AccountDetails) => {
+									return (
+										<div className="account-detail" key={account.id}>
+											<p>{account.name}</p>
+											<input
+												className="amount"
+												defaultValue={account.amount}
+												disabled={isDisable}
+												onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+													onAmountChange(e, account)
+												}
+											/>
+										</div>
+									);
+								})}
+						</div>
+					</>
+				)}
+			</main>
 		</>
 	);
 }

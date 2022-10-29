@@ -28,6 +28,11 @@
 	.myContainer {
 		@apply lg:max-w-5xl max-w-2xl w-full mx-auto;
 	}
+	
+	.scaffold {
+		@apply mx-auto sm:max-w-sm md:max-w-3xl max-w-[16rem]
+	}
+
 	.cardContainer {
 		@apply sm:w-full w-64 rounded-md shadow-md h-36 relative overflow-hidden;
 	}
@@ -71,4 +76,11 @@ input[type="file"] {
 
 .account-detail {
 	@apply flex justify-between dark:text-white even:dark:bg-dark-surface-3 p-4 even:bg-gray-200 items-center rounded-md;
+}
+
+.dashboard-button {
+	@apply dark:text-white border h-28 w-28 grid place-items-center
+}
+.dashboard-button svg {
+	@apply dark:fill-white
 }
