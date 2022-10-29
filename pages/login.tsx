@@ -14,6 +14,7 @@ export default function Login(props: componentProps) {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState(false);
 
 	useEffect(() => {
 		isUserAuthenticated()
@@ -29,9 +30,7 @@ export default function Login(props: componentProps) {
 				props.setAuthenticated(true);
 				router.replace("/dashboard");
 			})
-			.catch((e) => {
-				console.log("error logging in", e);
-			})
+			.catch((e) => setError(true))
 			.finally(() => setLoading(false));
 	};
 
@@ -49,13 +48,14 @@ export default function Login(props: componentProps) {
 					<div>
 						<label htmlFor="email">Email</label>
 						<input
-							className="input"
+							className='input'
 							name="email"
 							required
 							placeholder="example@example.com"
 							onChange={(e) => setEmail(e.target.value)}
 							value={email}
 						/>
+						{error && <span className="text-red-500">Invalid Credentials</span>}
 					</div>
 					<div>
 						<label htmlFor="payee">Password</label>
@@ -68,6 +68,7 @@ export default function Login(props: componentProps) {
 							onChange={(e) => setPassword(e.target.value)}
 							value={password}
 						/>
+						{error && <span className="text-red-500">Invalid Credentials</span>}
 					</div>
 					<Button type="submit" loading={loading}>
 						Login

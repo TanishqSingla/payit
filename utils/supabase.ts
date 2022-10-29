@@ -77,9 +77,9 @@ export const supabaseLogin = async ({
 		password,
 	});
 	if (error) {
-		Promise.reject(new Error(error?.message));
+		return Promise.reject(new Error(error?.message));
 	}
-	Promise.resolve({ user, session });
+	return Promise.resolve({ user, session });
 };
 
 export const supabaseLogout = async () => {
