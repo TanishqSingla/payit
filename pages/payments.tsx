@@ -25,14 +25,10 @@ const Payments: NextPage<{ payments: Payment[] }> = () => {
 	useEffect(() => {
 		setLoading(true);
 		isUserAuthenticated()
-			.then((_) => setLoading(false))
-			.catch(() => router.replace("/"));
+			.then((_) => getPaymentData())
+			.catch(() => router.replace("/"))
+			.finally(() => setLoading(false));
 	}, [router]);
-
-	useEffect(() => {
-		setLoading(true);
-		getPaymentData();
-	}, []);
 
 	useEffect(() => {
 		const subscription = supabase

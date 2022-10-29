@@ -3,7 +3,11 @@ import { useRouter } from "next/router";
 import { useState, useEffect, useRef } from "react";
 import { HiOutlineRefresh } from "react-icons/hi";
 import { Spinner } from "../components/UI/Spinner";
-import { getAccountDetails, isUserAuthenticated, updateAccountAmount } from "../utils/supabase";
+import {
+	getAccountDetails,
+	isUserAuthenticated,
+	updateAccountAmount,
+} from "../utils/supabase";
 
 export default function Accounts() {
 	const [loading, setLoading] = useState(false);
@@ -12,7 +16,7 @@ export default function Accounts() {
 
 	const router = useRouter();
 
-	const amountInput = useRef<string>()
+	const amountInput = useRef<string>();
 
 	const getDetails = () => {
 		getAccountDetails()
@@ -29,19 +33,20 @@ export default function Accounts() {
 	useEffect(() => {
 		setLoading(true);
 		isUserAuthenticated()
-			.then(() => setLoading(false))
-			.catch((_) => router.replace("/"));
+			.then(() => {
+				getDetails();
+			})
+			.catch((_) => router.replace("/"))
+			.finally(() => setLoading(false));
 	}, [router]);
 
-	useEffect(() => getDetails(), []);
-
 	const debounceInput = (amount: string, account: AccountDetails) => {
-		if(amountInput.current === amount) {
+		if (amountInput.current === amount) {
 			return;
 		}
 		amountInput.current = amount;
 		updateAccountAmount(account.id, amount).finally(() => setIsDisable(true));
-	}
+	};
 
 	const onAmountChange = async (
 		e: React.ChangeEvent<HTMLInputElement>,
@@ -51,7 +56,7 @@ export default function Accounts() {
 		clearTimeout(timer);
 		timer = setTimeout(() => {
 			debounceInput(e.target.value, account);
-		}, 5000)
+		}, 3000);
 	};
 
 	return (
