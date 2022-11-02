@@ -2,12 +2,13 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState, useEffect, useRef } from "react";
 import { HiOutlineRefresh } from "react-icons/hi";
-import { Spinner } from "../components/UI/Spinner";
+import { Spinner } from "../../components/UI/Spinner";
 import {
 	getAccountDetails,
 	isUserAuthenticated,
 	updateAccountAmount,
-} from "../utils/supabase";
+} from "../../utils/supabase";
+import styles from './accounts.module.css';
 
 export default function Accounts() {
 	const [loading, setLoading] = useState(false);
@@ -89,10 +90,10 @@ export default function Accounts() {
 							{details &&
 								details.map((account: AccountDetails) => {
 									return (
-										<div className="account-detail" key={account.id}>
+										<div className={styles.AccountDetails} key={account.id}>
 											<p>{account.name}</p>
 											<input
-												className="amount"
+												className={styles.Amount}
 												defaultValue={account.amount}
 												disabled={isDisable}
 												onChange={(e: React.ChangeEvent<HTMLInputElement>) =>

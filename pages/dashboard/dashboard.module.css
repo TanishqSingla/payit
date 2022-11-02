@@ -1,0 +1,10 @@
+.DashBoardButton {
+	@apply border h-28 w-28 grid place-items-center
+}
+:global(.dark) .DashBoardButton svg {
+	@apply fill-white
+}
+
+:global(.dark) .DashBoardButton {
+ @apply text-white 
+}

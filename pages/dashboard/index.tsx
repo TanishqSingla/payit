@@ -1,15 +1,16 @@
 import { useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import { Accounts, CreatePaymentIcon, Payment } from "../public/icons";
-import { isUserAuthenticated } from "../utils/supabase";
+import { Accounts, CreatePaymentIcon, Payment } from "../../public/icons";
+import { isUserAuthenticated } from "../../utils/supabase";
 import { useRouter } from "next/router";
+import style from "./dashboard.module.css";
 
 export default function Dashboard() {
-	const router = useRouter()
+	const router = useRouter();
 
 	useEffect(() => {
-		isUserAuthenticated().catch(() => router.replace('/'))
+		isUserAuthenticated().catch(() => router.replace("/"));
 	}, [router]);
 
 	return (
@@ -21,7 +22,7 @@ export default function Dashboard() {
 			<main className="myContainer">
 				<div className="scaffold">
 					<div className="flex gap-8 flex-wrap">
-						<div className="dashboard-button">
+						<div className={style.DashBoardButton}>
 							<Link href="accounts" passHref>
 								<a>
 									<Accounts size="4rem" />
@@ -29,7 +30,7 @@ export default function Dashboard() {
 								</a>
 							</Link>
 						</div>
-						<div className="dashboard-button">
+						<div className={style.DashBoardButton}>
 							<Link href="payments" passHref>
 								<a>
 									<Payment size="4rem" />
@@ -37,7 +38,7 @@ export default function Dashboard() {
 								</a>
 							</Link>
 						</div>
-						<div className="dashboard-button">
+						<div className={style.DashBoardButton}>
 							<Link href="createPayment" passHref>
 								<a>
 									<CreatePaymentIcon size="4rem" />

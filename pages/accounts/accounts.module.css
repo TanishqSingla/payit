@@ -1,0 +1,15 @@
+.Amount {
+	@apply shadow surface-text appearance-none border rounded w-48 py-2 px-3 leading-tight focus:outline-blue-300 focus:shadow-none text-right;
+}
+
+.AccountDetails {
+	@apply flex justify-between p-4 even:bg-gray-200 items-center rounded-md;
+}
+
+:global(.dark) .Amount {
+	@apply border-none bg-dark-surface text-white;
+}
+
+:global(.dark) .AccountDetails {
+	@apply even:bg-dark-surface-3 text-white;
+}
