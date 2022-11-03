@@ -21,7 +21,7 @@ export default function Dashboard() {
 			</Head>
 			<main className="myContainer">
 				<div className="scaffold">
-					<div className="flex gap-8 flex-wrap">
+					<div className="flex gap-8 flex-wrap justify-evenly">
 						<div className={style.DashBoardButton}>
 							<Link href="accounts" passHref>
 								<a>
