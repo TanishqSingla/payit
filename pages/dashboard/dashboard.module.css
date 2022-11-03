@@ -1,10 +1,16 @@
 .DashBoardButton {
-	@apply border h-28 w-28 grid place-items-center
+	border: none;
+	border-bottom: solid 4px slategray;
+	@apply h-28 w-28 grid place-items-center rounded-xl bg-zinc-100;
+}
+.DashBoardButton:active {
+	border-bottom: solid 1px #212121;
 }
 :global(.dark) .DashBoardButton svg {
-	@apply fill-white
+	@apply fill-white;
 }
 
 :global(.dark) .DashBoardButton {
- @apply text-white 
+	border-bottom: solid 4px #212121;
+	@apply text-white bg-[#181818];
 }
