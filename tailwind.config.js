@@ -26,6 +26,14 @@ module.exports = {
 			},
 		},
 	},
-	plugins: [],
+	plugins: [
+		function({ addUtilities }) {
+			addUtilities({
+				'.surface-text': {
+					'@apply text-white dark:text-black': {},
+				}
+			})
+		}
+	],
 	darkMode: "class",
 };

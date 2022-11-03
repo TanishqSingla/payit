@@ -4,9 +4,6 @@
 @tailwind variants;
 
 @layer components {
-	.surface-text {
-		@apply text-black dark:text-white;
-	}
 	.surface {
 		@apply bg-surface dark:bg-dark-surface shadow surface-text;
 	}
@@ -70,3 +67,6 @@ input[type="file"] {
 .input {
 	@apply shadow surface-text appearance-none border dark:border-none rounded w-full py-2 px-3 leading-tight focus:outline-blue-300 focus:shadow-none dark:bg-dark-surface-3;
 }
+.surface-text {
+		@apply text-black dark:text-white;
+}	
