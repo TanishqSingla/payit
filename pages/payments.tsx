@@ -7,6 +7,7 @@ import {
 	HiOutlineInformationCircle,
 	HiOutlineRefresh,
 	HiPlus,
+	HiSearch,
 } from "react-icons/hi";
 import DetailsCard from "../components/DetailsCard/DetailsCard";
 import PaymentCard from "../components/PaymentCard/PaymentCard";
@@ -25,7 +26,7 @@ const Payments: NextPage<{ payments: Payment[] }> = () => {
 	useEffect(() => {
 		isUserAuthenticated()
 			.then((_) => getPaymentData())
-			.catch(() => router.replace("/"))
+			.catch(() => router.replace("/"));
 	}, [router]);
 
 	useEffect(() => {
@@ -64,7 +65,12 @@ const Payments: NextPage<{ payments: Payment[] }> = () => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<main className="myContainer">
-				<div className="flex h-8 items-center text-sm mx-auto w-[16rem] sm:w-full">
+				{/* <div>
+					<button className="surface-text">
+						<HiSearch />
+					</button>
+				</div> */}
+				<div className="flex h-8 items-center text-sm mx-auto w-[16rem] sm:w-full justify-between">
 					<button
 						className="flex items-center surface-text"
 						onClick={handleRefresh}
@@ -105,10 +111,11 @@ const Payments: NextPage<{ payments: Payment[] }> = () => {
 						))}
 				</div>
 			</main>
-			<Link href="/createPayment" passHref>
-				<a className="transition-colors duration-500 h-12 w-12 rounded-full bg-primary dark:bg-dark-secondary text-white py-2 text-2xl fixed text-center bottom-10 right-5 md:right-20 grid place-items-center">
-					<HiPlus />
-				</a>
+			<Link
+				href="/createPayment"
+				className="transition-colors duration-500 h-12 w-12 rounded-full bg-primary dark:bg-dark-secondary text-white py-2 text-2xl fixed text-center bottom-10 right-5 md:right-20 grid place-items-center"
+			>
+				<HiPlus />
 			</Link>
 			{modalDetails && (
 				<Modal visible={modalVisible} onCancel={() => setModalVisible(false)}>

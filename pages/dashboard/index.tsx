@@ -24,26 +24,20 @@ export default function Dashboard() {
 					<div className="flex gap-8 flex-wrap justify-evenly">
 						<div className={style.DashBoardButton}>
 							<Link href="accounts" passHref>
-								<a>
-									<Accounts size="4rem" />
-									<p>Accounts</p>
-								</a>
+								<Accounts size="4rem" />
+								<p>Accounts</p>
 							</Link>
 						</div>
 						<div className={style.DashBoardButton}>
 							<Link href="payments" passHref>
-								<a>
-									<Payment size="4rem" />
-									<p>Payments</p>
-								</a>
+								<Payment size="4rem" />
+								<p>Payments</p>
 							</Link>
 						</div>
 						<div className={style.DashBoardButton}>
 							<Link href="createPayment" passHref>
-								<a>
-									<CreatePaymentIcon size="4rem" />
-									<p className="w-16 text-center leading-3">Create Payment</p>
-								</a>
+								<CreatePaymentIcon size="4rem" />
+								<p className="w-16 text-center leading-3">Create Payment</p>
 							</Link>
 						</div>
 					</div>
