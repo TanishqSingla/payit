@@ -49,6 +49,10 @@
 	.modal-details p {
 		@apply min-w-[6rem];
 	}
+
+	.searchbar {
+		@apply focus:outline-none surface-text border-b-2 border-slate-200/50 p-2 sm:w-64
+	}
 }
 
 .accent::before {
@@ -69,4 +73,8 @@ input[type="file"] {
 }
 .surface-text {
 		@apply text-black dark:text-white;
-}	
+}
+
+.search {
+	@apply mb-4 sm:w-full w-64 mx-auto flex gap-8
+}

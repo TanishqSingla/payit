@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import {
 	HiOutlineInformationCircle,
 	HiOutlineRefresh,
@@ -20,6 +20,8 @@ const Payments: NextPage<{ payments: Payment[] }> = () => {
 	const [loading, setLoading] = useState(true);
 	const [modalDetails, setModalDetails] = useState<Payment>();
 	const [modalVisible, setModalVisible] = useState(false);
+	const [paymentData, setPaymentData] = useState<Payment[]>();
+	const [searchDisplay, setSearchDisplay] = useState(false);
 
 	const router = useRouter();
 
@@ -28,6 +30,10 @@ const Payments: NextPage<{ payments: Payment[] }> = () => {
 			.then((_) => getPaymentData())
 			.catch(() => router.replace("/"));
 	}, [router]);
+
+	useEffect(() => {
+		setPaymentData(payments);
+	}, [payments]);
 
 	useEffect(() => {
 		const subscription = supabase
@@ -55,6 +61,14 @@ const Payments: NextPage<{ payments: Payment[] }> = () => {
 		(payment) => payment.status === "pending"
 	).length;
 
+	const handleSearchChange = (e: ChangeEvent) => {
+		const eventTarget = e.target as HTMLInputElement;
+		const filteredData = payments?.filter((payment) =>
+			payment.payee.toLowerCase().includes(eventTarget.value.toLowerCase())
+		);
+		setPaymentData(filteredData);
+	};
+
 	return (
 		<>
 			<Head>
@@ -65,11 +79,16 @@ const Payments: NextPage<{ payments: Payment[] }> = () => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<main className="myContainer">
-				{/* <div>
-					<button className="surface-text">
-						<HiSearch />
+				<div className="search items-center">
+					{searchDisplay && <input
+						className="bg-transparent rounded-md searchbar"
+						placeholder="Enter keyword"
+						onChange={handleSearchChange}
+					/>}
+					<button onClick={() => setSearchDisplay(!searchDisplay)}>
+						<HiSearch className="surface-text" />
 					</button>
-				</div> */}
+				</div>
 				<div className="flex h-8 items-center text-sm mx-auto w-[16rem] sm:w-full justify-between">
 					<button
 						className="flex items-center surface-text"
@@ -89,8 +108,8 @@ const Payments: NextPage<{ payments: Payment[] }> = () => {
 						</>
 					)}
 					{!loading &&
-						payments &&
-						payments.map((detail) => (
+						paymentData &&
+						paymentData.map((detail) => (
 							<PaymentCard
 								key={detail.id}
 								paymentDetails={detail}

@@ -23,19 +23,19 @@ export default function Dashboard() {
 				<div className="scaffold">
 					<div className="flex gap-8 flex-wrap justify-evenly">
 						<div className={style.DashBoardButton}>
-							<Link href="accounts" passHref>
+							<Link href="accounts">
 								<Accounts size="4rem" />
 								<p>Accounts</p>
 							</Link>
 						</div>
 						<div className={style.DashBoardButton}>
-							<Link href="payments" passHref>
+							<Link href="payments">
 								<Payment size="4rem" />
 								<p>Payments</p>
 							</Link>
 						</div>
 						<div className={style.DashBoardButton}>
-							<Link href="createPayment" passHref>
+							<Link href="createPayment">
 								<CreatePaymentIcon size="4rem" />
 								<p className="w-16 text-center leading-3">Create Payment</p>
 							</Link>

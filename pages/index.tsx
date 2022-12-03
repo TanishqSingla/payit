@@ -35,10 +35,8 @@ const Home: NextPage = () => {
 						<h1 className="md:text-8xl text-6xl font-bold mb-8 text-center">
 							Welcome to Payit!
 						</h1>
-						<Link href="/login" passHref>
-							<a>
-								<button className={styles.landingButton}>Sign In</button>
-							</a>
+						<Link href="/login">
+							<button className={styles.landingButton}>Sign In</button>
 						</Link>
 					</div>
 				)}
