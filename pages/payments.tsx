@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useLayoutEffect, useState } from "react";
 import {
 	HiOutlineInformationCircle,
 	HiOutlineRefresh,
@@ -13,11 +13,11 @@ import DetailsCard from "../components/DetailsCard/DetailsCard";
 import PaymentCard from "../components/PaymentCard/PaymentCard";
 import Loading from "../components/UI/Loading";
 import Modal from "../components/UI/Modal";
-import { getPayments, isUserAuthenticated, supabase } from "../utils/supabase";
+import usePayments from "../hooks/usePayments";
+import { isUserAuthenticated, supabase } from "../utils/supabase";
 
 const Payments: NextPage<{ payments: Payment[] }> = () => {
-	const [payments, setPayments] = useState<Payment[]>();
-	const [loading, setLoading] = useState(true);
+	const { payments, loading, refreshPayments } = usePayments();
 	const [modalDetails, setModalDetails] = useState<Payment>();
 	const [modalVisible, setModalVisible] = useState(false);
 	const [paymentData, setPaymentData] = useState<Payment[]>();
@@ -25,37 +25,23 @@ const Payments: NextPage<{ payments: Payment[] }> = () => {
 
 	const router = useRouter();
 
-	useEffect(() => {
-		isUserAuthenticated()
-			.then((_) => getPaymentData())
-			.catch(() => router.replace("/"));
+	useLayoutEffect(() => {
+		isUserAuthenticated().catch(() => router.replace("/"));
 	}, [router]);
 
 	useEffect(() => {
 		setPaymentData(payments);
 	}, [payments]);
 
-	useEffect(() => {
-		const subscription = supabase
-			.from("Payments")
-			.on("*", (_) => getPaymentData())
-			.subscribe();
-		return () => {
-			subscription.unsubscribe();
-		};
-	}, []);
-
-	const getPaymentData = () => {
-		getPayments()
-			.then((data) => setPayments(data))
-			.catch((e) => console.log(e))
-			.finally(() => setLoading(false));
-	};
-
-	const handleRefresh = () => {
-		setLoading(true);
-		getPaymentData();
-	};
+	// useEffect(() => {
+	// 	const subscription = supabase
+	// 		.from("Payments")
+	// 		.on("*", refreshPayments)
+	// 		.subscribe();
+	// 	return () => {
+	// 		subscription.unsubscribe();
+	// 	};
+	// }, [refreshPayments]);
 
 	let pendingStatus = payments?.filter(
 		(payment) => payment.status === "pending"
@@ -80,11 +66,13 @@ const Payments: NextPage<{ payments: Payment[] }> = () => {
 			</Head>
 			<main className="myContainer">
 				<div className="search items-center">
-					{searchDisplay && <input
-						className="bg-transparent rounded-md searchbar"
-						placeholder="Enter keyword"
-						onChange={handleSearchChange}
-					/>}
+					{searchDisplay && (
+						<input
+							className="bg-transparent rounded-md searchbar"
+							placeholder="Enter keyword"
+							onChange={handleSearchChange}
+						/>
+					)}
 					<button onClick={() => setSearchDisplay(!searchDisplay)}>
 						<HiSearch className="surface-text" />
 					</button>
@@ -92,7 +80,7 @@ const Payments: NextPage<{ payments: Payment[] }> = () => {
 				<div className="flex h-8 items-center text-sm mx-auto w-[16rem] sm:w-full justify-between">
 					<button
 						className="flex items-center surface-text"
-						onClick={handleRefresh}
+						onClick={refreshPayments}
 					>
 						<HiOutlineRefresh className={loading ? "animate-spin" : ""} />
 						Refresh
@@ -141,7 +129,7 @@ const Payments: NextPage<{ payments: Payment[] }> = () => {
 					<DetailsCard
 						details={modalDetails}
 						onCloseHandle={() => setModalVisible(false)}
-						handleRefresh={handleRefresh}
+						handleRefresh={refreshPayments}
 					/>
 				</Modal>
 			)}
