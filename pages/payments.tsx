@@ -33,15 +33,15 @@ const Payments: NextPage<{ payments: Payment[] }> = () => {
 		setPaymentData(payments);
 	}, [payments]);
 
-	// useEffect(() => {
-	// 	const subscription = supabase
-	// 		.from("Payments")
-	// 		.on("*", refreshPayments)
-	// 		.subscribe();
-	// 	return () => {
-	// 		subscription.unsubscribe();
-	// 	};
-	// }, [refreshPayments]);
+	useEffect(() => {
+		const subscription = supabase
+			.from("Payments")
+			.on("*", refreshPayments)
+			.subscribe();
+		return () => {
+			subscription.unsubscribe();
+		};
+	}, [refreshPayments]);
 
 	let pendingStatus = payments?.filter(
 		(payment) => payment.status === "pending"
