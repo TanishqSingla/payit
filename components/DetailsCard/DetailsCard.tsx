@@ -11,13 +11,11 @@ import { Button } from "../UI/Button";
 interface DetailProps {
 	details: Payment;
 	onCloseHandle: (e: React.MouseEvent) => void;
-	handleRefresh: () => void;
 }
 
 export default function DetailsCard({
 	details,
 	onCloseHandle,
-	handleRefresh,
 }: DetailProps) {
 	const [status, setStatus] = useState(details.status);
 	const [saveLoading, setSaveLoading] = useState(false);
@@ -36,7 +34,6 @@ export default function DetailsCard({
 			setSaveLoading(true);
 			updateStatus(status, details.id)
 				.then((data) => {
-					handleRefresh();
 					onCloseHandle(e);
 				})
 				.catch((e) => console.log(e))
@@ -49,7 +46,6 @@ export default function DetailsCard({
 				.eq("id", details.id);
 			await supabase.storage.from("documents").upload(file.name, file);
 			onCloseHandle(e);
-			handleRefresh();
 		}
 	};
 
@@ -63,7 +59,6 @@ export default function DetailsCard({
 		deletePayment(details.id)
 			.then((data) => {
 				onCloseHandle(e);
-				handleRefresh();
 			})
 			.catch((e) => console.log(e))
 			.finally(() => setDeleteLoading(false));

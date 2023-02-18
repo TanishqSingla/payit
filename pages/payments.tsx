@@ -114,7 +114,6 @@ const Payments: NextPage<{ payments: Payment[] }> = (
 					<DetailsCard
 						details={modalDetails}
 						onCloseHandle={() => setModalVisible(false)}
-						handleRefresh={refreshPayments}
 					/>
 				</Modal>
 			)}

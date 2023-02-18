@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getPayments, isUserAuthenticated, supabase } from "../utils/supabase";
+import { getPayments, supabase } from "../utils/supabase";
 
 export default function usePayments(initialData: Payment[] = []) {
 	const [loading, setLoading] = useState(false);
