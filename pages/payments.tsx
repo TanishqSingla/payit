@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -7,21 +7,26 @@ import {
 	HiOutlineInformationCircle,
 	HiOutlineRefresh,
 	HiPlus,
-	HiSearch,
 } from "react-icons/hi";
 import DetailsCard from "../components/DetailsCard/DetailsCard";
 import PaymentCard from "../components/PaymentCard/PaymentCard";
+import Searchbar from "../components/Searchbar/Searchbar";
 import Loading from "../components/UI/Loading";
 import Modal from "../components/UI/Modal";
 import usePayments from "../hooks/usePayments";
-import { isUserAuthenticated, supabase } from "../utils/supabase";
+import { getPayments, isUserAuthenticated } from "../utils/supabase";
 
-const Payments: NextPage<{ payments: Payment[] }> = () => {
-	const { payments, loading, refreshPayments } = usePayments();
+type PaymentsPageProps = {
+	payments: Payment[];
+};
+
+const Payments: NextPage<{ payments: Payment[] }> = (
+	props: PaymentsPageProps
+) => {
+	const { payments, loading, refreshPayments } = usePayments(props.payments);
 	const [modalDetails, setModalDetails] = useState<Payment>();
 	const [modalVisible, setModalVisible] = useState(false);
-	const [paymentData, setPaymentData] = useState<Payment[]>();
-	const [searchDisplay, setSearchDisplay] = useState(false);
+	const [paymentData, setPaymentData] = useState<Payment[]>(props.payments);
 
 	const router = useRouter();
 
@@ -29,19 +34,9 @@ const Payments: NextPage<{ payments: Payment[] }> = () => {
 		isUserAuthenticated().catch(() => router.replace("/"));
 	}, [router]);
 
-	useEffect(() => {
-		setPaymentData(payments);
-	}, [payments]);
-
-	useEffect(() => {
-		const subscription = supabase
-			.from("Payments")
-			.on("*", refreshPayments)
-			.subscribe();
-		return () => {
-			subscription.unsubscribe();
-		};
-	}, [refreshPayments]);
+  useEffect(() => {
+    setPaymentData(payments);
+  }, [payments])
 
 	let pendingStatus = payments?.filter(
 		(payment) => payment.status === "pending"
@@ -49,10 +44,11 @@ const Payments: NextPage<{ payments: Payment[] }> = () => {
 
 	const handleSearchChange = (e: ChangeEvent) => {
 		const eventTarget = e.target as HTMLInputElement;
-		const filteredData = payments?.filter((payment) =>
-			payment.payee.toLowerCase().includes(eventTarget.value.toLowerCase())
+		setPaymentData(() =>
+			payments.filter((payment) =>
+				payment.payee.toLowerCase().includes(eventTarget.value.toLowerCase())
+			)
 		);
-		setPaymentData(filteredData);
 	};
 
 	return (
@@ -65,18 +61,7 @@ const Payments: NextPage<{ payments: Payment[] }> = () => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<main className="myContainer">
-				<div className="search items-center">
-					{searchDisplay && (
-						<input
-							className="bg-transparent rounded-md searchbar"
-							placeholder="Enter keyword"
-							onChange={handleSearchChange}
-						/>
-					)}
-					<button onClick={() => setSearchDisplay(!searchDisplay)}>
-						<HiSearch className="surface-text" />
-					</button>
-				</div>
+				<Searchbar onChange={handleSearchChange} />
 				<div className="flex h-8 items-center text-sm mx-auto w-[16rem] sm:w-full justify-between">
 					<button
 						className="flex items-center surface-text"
@@ -135,6 +120,16 @@ const Payments: NextPage<{ payments: Payment[] }> = () => {
 			)}
 		</>
 	);
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+	const payments = await getPayments();
+
+	return {
+		props: {
+			payments,
+		},
+	};
 };
 
 export default Payments;

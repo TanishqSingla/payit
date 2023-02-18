@@ -27,13 +27,13 @@ module.exports = {
 		},
 	},
 	plugins: [
-		function({ addUtilities }) {
+		function ({ addUtilities }) {
 			addUtilities({
-				'.surface-text': {
-					'@apply text-white dark:text-black': {},
-				}
-			})
-		}
+				".surface-text": {
+					"@apply text-white dark:text-black": {},
+				},
+			});
+		},
 	],
 	darkMode: "class",
 };

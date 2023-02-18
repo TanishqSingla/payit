@@ -25,9 +25,9 @@
 	.myContainer {
 		@apply lg:max-w-5xl max-w-2xl w-full mx-auto;
 	}
-	
+
 	.scaffold {
-		@apply mx-auto sm:max-w-sm md:max-w-3xl max-w-[16rem]
+		@apply mx-auto sm:max-w-sm md:max-w-3xl max-w-[16rem];
 	}
 
 	.cardContainer {
@@ -51,7 +51,7 @@
 	}
 
 	.searchbar {
-		@apply focus:outline-none surface-text border-b-2 border-slate-200/50 p-2 sm:w-64
+		@apply focus:outline-none surface-text border-b-2 border-slate-200/50 p-2 sm:w-64;
 	}
 }
 
@@ -72,9 +72,9 @@ input[type="file"] {
 	@apply shadow surface-text appearance-none border dark:border-none rounded w-full py-2 px-3 leading-tight focus:outline-blue-300 focus:shadow-none dark:bg-dark-surface-3;
 }
 .surface-text {
-		@apply text-black dark:text-white;
+	@apply text-black dark:text-white;
 }
 
 .search {
-	@apply mb-4 sm:w-full w-64 mx-auto flex gap-8
+	@apply mb-4 sm:w-full w-64 mx-auto flex gap-8;
 }

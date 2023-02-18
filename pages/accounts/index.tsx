@@ -8,7 +8,7 @@ import {
 	isUserAuthenticated,
 	updateAccountAmount,
 } from "../../utils/supabase";
-import styles from './accounts.module.css';
+import styles from "./accounts.module.css";
 
 export default function Accounts() {
 	const [loading, setLoading] = useState(false);

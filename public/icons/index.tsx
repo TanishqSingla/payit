@@ -16,7 +16,7 @@ export const Payment = (props: SVGType) => (
 export const CreatePaymentIcon = (props: SVGType) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
-    className="m-0 p-0"
+		className="m-0 p-0"
 		width={props.size}
 		height={props.size}
 		viewBox="0 0 24 24"

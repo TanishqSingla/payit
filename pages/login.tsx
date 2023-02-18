@@ -48,7 +48,7 @@ export default function Login(props: componentProps) {
 					<div>
 						<label htmlFor="email">Email</label>
 						<input
-							className='input'
+							className="input"
 							name="email"
 							required
 							placeholder="example@example.com"
