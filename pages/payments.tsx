@@ -34,9 +34,9 @@ const Payments: NextPage<{ payments: Payment[] }> = (
 		isUserAuthenticated().catch(() => router.replace("/"));
 	}, [router]);
 
-  useEffect(() => {
-    setPaymentData(payments);
-  }, [payments])
+	useEffect(() => {
+		setPaymentData(payments);
+	}, [payments]);
 
 	let pendingStatus = payments?.filter(
 		(payment) => payment.status === "pending"

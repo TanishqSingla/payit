@@ -13,10 +13,7 @@ interface DetailProps {
 	onCloseHandle: (e: React.MouseEvent) => void;
 }
 
-export default function DetailsCard({
-	details,
-	onCloseHandle,
-}: DetailProps) {
+export default function DetailsCard({ details, onCloseHandle }: DetailProps) {
 	const [status, setStatus] = useState(details.status);
 	const [saveLoading, setSaveLoading] = useState(false);
 	const [deleteLoading, setDeleteLoading] = useState(false);
